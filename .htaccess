@@ -11,12 +11,12 @@
 # pretty urls #
 ###############
 
-#RewriteEngine off
-#RewriteBase /bobcat_embed/
-#RewriteRule ^embed_gen(.*)$ index.php?action=generate [QSA]
-#RewriteRule ^embed(.*)$ index.php?action=embed [QSA]
-#
-## Pass /css, /images, and /javascript through
-#RewriteRule ^(css|images|javascript)/(.*)$ $1/$2 [L]
-#
-#RewriteRule ^.* index.php?action=generate [QSA]
+RewriteEngine on
+RewriteBase /bobcat/
+RewriteRule ^embed_gen(.*)$ index.php?action=generate [QSA]
+RewriteRule ^embed(.*)$ index.php?action=embed [QSA]
+
+# Pass /css, /images, and /javascript through
+RewriteRule ^(css|images|javascript)/(.*)$ $1/$2 [L]
+
+RewriteRule ^.* index.php?action=generate [QSA]
