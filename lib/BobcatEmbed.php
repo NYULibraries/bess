@@ -79,16 +79,18 @@ class BobCat_Embed
 		$this->page_xml->addChild('request','');
 		$this->page_xml->request->addChild('unique_key',$this->getUniqueKey(10));
 
-		$request_params = explode('&',$_SERVER["QUERY_STRING"]);
-		if (count($request_params) > 0) {
-			$this->page_xml->request->addChild('querystring', urlencode($_SERVER["QUERY_STRING"]));
-			foreach ($request_params as $p) {
-				if ($p != "") {
-				$p_parts = explode('=',$p);
-				$this->page_xml->request->addChild($p_parts[0],$p_parts[1]);
-				}
-			}
-		}
+    if (isset($_SERVER["QUERY_STRING"])) {
+  		$request_params = explode('&',$_SERVER["QUERY_STRING"]);
+  		if (count($request_params) > 0) {
+  			$this->page_xml->request->addChild('querystring', urlencode($_SERVER["QUERY_STRING"]));
+  			foreach ($request_params as $p) {
+  				if ($p != "") {
+  				$p_parts = explode('=',$p);
+  				$this->page_xml->request->addChild($p_parts[0],$p_parts[1]);
+  				}
+  			}
+  		}
+	  }
 
 	}
 	
@@ -143,7 +145,7 @@ class BobCat_Embed
 	 */
 	protected function getViews() {
 		try {
-			if ($_REQUEST['action'] == "embed" && isset($_REQUEST['disp_select_view'])) {
+			if (isset($_REQUEST['action']) && $_REQUEST['action'] == "embed" && isset($_REQUEST['disp_select_view'])) {
 				$views_container = $this->config_xml->xpath("//views/view[@id='".$_REQUEST['disp_select_view']."']"); 
 			} else {
 				$views_container = $this->config_xml->xpath("//views"); 

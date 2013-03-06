@@ -18,5 +18,5 @@ This application was written specifically to implement the BobCat application bu
 * More testing coverage
 * Generalize to any discovery service where you can post or get to a form
 * If possible, pull config for searching out of Primo
-* Has structure in place for multiple languages, but doesn't implement
+* Has structure in place for internationalization, but doesn't implement
 * Settings XML file needs full schema to be documented
