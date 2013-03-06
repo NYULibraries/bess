@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+	<!-- basic application info, no trailing slash -->
+	<!-- Base url to append before creating links to embed, so this applications base url -->
+	<config name="base_url"></config>
+	<!-- The Primo Deep Link Search Url, ends in dlSearch.do -->
+	<config name="primo_dlsearch_url"><!--...dlSearch.do--></config>
+	<!-- The Primo Search Url, ends in search.do -->
+	<config name="primo_search_url"><!--...search.do--></config>
+	<!-- Utilizes open source metalib searching PHP-library Xerxes -->
+	<!-- https://code.google.com/p/xerxes-portal/ -->
+	<config name="xerxes_search_url"></config>
+	<!-- Utilizes open source SFX searching Rails application/link resolver Umlaut -->
+	<!-- https://github.com/team-umlaut/umlaut -->
+	<config name="umlaut_search_url"></config>
+	
+	<!-- application title -->
+	<config name="app_title">BobCat</config>
+	
+	<!-- links and text for breadcrumbing, no trailing slashes -->
+	<config name="app_url">http://bobcat.library.nyu.edu</config>
+	<config name="home_url">https://library.nyu.edu</config>
+	<config name="home_title">NYU Libraries</config>
+	
+	<!-- metalib connection info 
+		metalib_url: main metalib url with port if non-80, no trailing slash
+		metalib_user: admin user name
+		metalib_pass: admin password
+		metalib_inst: metalib institute name
+	-->
+	<!-- Metalib X-Server settings, not implemented anywhere in application currently -->
+	<config name="metalib_url" pass="false"></config>
+	<config name="metalib_user" pass="false"></config>
+	<config name="metalib_pass" pass="false"></config>
+	<config name="metalib_inst" pass="false"></config>
+	
+	<!-- views -->
+	<views>
+	  
+	<!-- Different institutions have different views of the searchbox, each is defined in a <view /> tag below -->
+  
+	<view default="true" id="NYU" title="NYU">
+		<tabs>
+			<tab system="primo" search="search" default="true" name="all" header="Search for Books &amp; More" description="Books &amp; e-books, journals &amp; e-journals, scripts, scores, archival materials, NYU dissertations, videos, sound recordings" title="Books &amp; More">
+				<limit_to>
+					<media_types name="addSearchFields[vl(378633853UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>
+						<media_type name="scores">Score</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="archives">Archival Materials</media_type>	
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NS),scope:(CU),scope:(&#034;BHS&#034;),scope:(NYU),scope:(&#034;NYSID&#034;),scope:(&#034;NYHS&#034;),scope:(GEN),scope:(&#034;NYUAD&#034;)">all</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(212921975UI0)]" dlname="indexField">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]" dlname="precisionOperator">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="dym" type="hidden">
+						<input type="hidden" name="addSearchFields[dym]" value="true" />	
+					</field>
+					<field name="lang" type="hidden">
+						<input type="hidden" name="addSearchFields[lang]" value="eng" />
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="onCampus" type="hidden">
+						<input type="hidden" name="addSearchFields[onCampus]" value="false" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" pass-vid="true" mode="Advanced" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="articles" header="Search for Articles" description="by Subject and Content type" title="Articles &amp; Databases">
+				<links>
+					<link name="search_native">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="databases" header="Search Databases A-Z" description="All databases by title" title="Databases A-Z">
+				<fields>
+					<field name="base" type="hidden">
+						<input type="hidden" name="addSearchFields[base]" value="databases" />
+					</field>
+					<field name="action" type="hidden">
+						<input type="hidden" name="addSearchFields[action]" value="find" />
+					</field>
+					<field name="query" type="text" title="Search for">
+						<input id="query" name="query" type="text" class="bobcat_embed_searchbox_textfield" title="Search for databases by title (e.g. PsycINFO, ERIC)" /> 
+					</field>
+				</fields>
+				<links>
+					<link name="list_all" href="/databases/alphabetical">All databases A-Z</link>
+					<link name="search_native">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="umlaut" name="journals" header="Search for Journals" description="Find e-journals by title or locate a known article " title="Journals">
+				<fields>
+					<field name="umlaut_institution" type="hidden">
+						<input type="hidden" name="umlaut.institution" value="NYU" /> 
+					</field>
+					<field name="rfr_id" type="hidden">
+						<input type="hidden" name="addSearchFields[rfr_id]" value="info:sid/sfxit.com:citation" /> 
+					</field>
+					<field name="rft_title" type="hidden">
+						<input type="hidden" id="rft_title" name="addSearchFields[rft.title]" />
+					</field>
+					<field name="rft_object_id" type="hidden">
+						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
+					</field>	
+					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
+						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+							<option value="contains">contains</option>
+							<option value="begins">begins with</option>
+							<option value="exact">exact match</option>
+						</select>
+					</field>
+					<field name="rft_jtitle" type="text" class="journal_title">
+						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+					</field>			
+					<field type="spacer" class="spacer">
+						<div></div>
+					</field>
+					<field name="rft_issn" type="text" title="OR ISSN" class="journal_issn">
+						<input id="issn" type="text" name="addSearchFields[rft.issn]"  />
+					</field>										
+				</fields>
+				<links>
+					<link name="advanced_search"><text>Advanced search</text></link>
+				</links>
+			</tab>
+			<tab system="primo" search="search" name="reserves" header="Search Course Reserves" description="Search for Course Reserves" title="Course Reserves">
+				<limit_to>
+					<media_types name="addSearchFields[vl(378633853UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>
+						<media_type name="scores">Score</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="archives">Archival Materials</media_type>	
+					</media_types>
+					<record_attributes name="addSearchFields[vl(212921977UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="lsr03">In course name</record_attribute>
+						<record_attribute name="toc">In course number</record_attribute>
+						<record_attribute name="lsr04">In instructor</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NYUCR),scope:(BOBSTCR)">bobstcr</scope>
+					</scopes>
+				</limit_to>
+				<fields>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+		</tabs>
+	</view>
+	
+  <view id="NYUHP" vid="NYU" title="NYU Homepage">
+		<tabs>
+			<tab system="primo" search="search" default="true" name="all" header="Search for Books &amp; More" description="Books &amp; e-books, journals &amp; e-journals, scripts, scores, archival materials, NYU dissertations, videos, sound recordings" title="Books &amp; More">
+				<limit_to>
+					<media_types name="addSearchFields[vl(378633853UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>
+						<media_type name="scores">Score</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="archives">Archival Materials</media_type>	
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NS),scope:(CU),scope:(&#034;BHS&#034;),scope:(NYU),scope:(&#034;NYSID&#034;),scope:(&#034;NYHS&#034;),scope:(GEN),scope:(&#034;NYUAD&#034;)">all</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(212921975UI0)]" dlname="indexField">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]" dlname="precisionOperator">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="dym" type="hidden">
+						<input type="hidden" name="addSearchFields[dym]" value="true" />	
+					</field>
+					<field name="lang" type="hidden">
+						<input type="hidden" name="addSearchFields[lang]" value="eng" />
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="onCampus" type="hidden">
+						<input type="hidden" name="addSearchFields[onCampus]" value="false" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" pass-vid="true" mode="Advanced" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="articles" header="Search for Articles" description="by Subject and Content type" title="Articles &amp; Databases">
+				<links>
+					<link name="search_native">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="databases" header="Search Databases A-Z" description="All databases by title" title="Databases A-Z">
+				<fields>
+					<field name="base" type="hidden">
+						<input type="hidden" name="addSearchFields[base]" value="databases" />
+					</field>
+					<field name="action" type="hidden">
+						<input type="hidden" name="addSearchFields[action]" value="find" />
+					</field>
+					<field name="query" type="text" title="Search for">
+						<input id="query" name="query" type="text" class="bobcat_embed_searchbox_textfield" title="Search for databases by title (e.g. PsycINFO, ERIC)" /> 
+					</field>
+				</fields>
+				<links>
+					<link name="list_all" href="/databases/alphabetical">All databases A-Z</link>
+					<link name="search_native">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="umlaut" name="journals" header="Search for Journals" description="Find e-journals by title or locate a known article " title="Journals">
+				<fields>
+					<field name="umlaut_institution" type="hidden">
+						<input type="hidden" name="umlaut.institution" value="NYU" /> 
+					</field>
+					<field name="rfr_id" type="hidden">
+						<input type="hidden" name="addSearchFields[rfr_id]" value="info:sid/sfxit.com:citation" /> 
+					</field>
+					<field name="rft_title" type="hidden">
+						<input type="hidden" id="rft_title" name="addSearchFields[rft.title]" />
+					</field>
+					<field name="rft_object_id" type="hidden">
+						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
+					</field>	
+					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
+						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+							<option value="contains">contains</option>
+							<option value="begins">begins with</option>
+							<option value="exact">exact match</option>
+						</select>
+					</field>
+					<field name="rft_jtitle" type="text" class="journal_title">
+						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+					</field>			
+					<field type="spacer" class="spacer">
+						<div></div>
+					</field>
+					<field name="rft_issn" type="text" title="OR ISSN" class="journal_issn">
+						<input id="issn" type="text" name="addSearchFields[rft.issn]"  />
+					</field>										
+				</fields>
+				<links>
+					<link name="advanced_search"><text>Advanced search</text></link>
+				</links>
+			</tab>
+			<tab system="primo" search="search" name="reserves" header="Search Course Reserves" description="Search for Course Reserves" title="Course Reserves">
+				<limit_to>
+					<media_types name="addSearchFields[vl(378633853UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>
+						<media_type name="scores">Score</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="archives">Archival Materials</media_type>	
+					</media_types>
+					<record_attributes name="addSearchFields[vl(212921977UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="lsr03">In course name</record_attribute>
+						<record_attribute name="toc">In course number</record_attribute>
+						<record_attribute name="lsr04">In instructor</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NYUCR),scope:(BOBSTCR)">bobstcr</scope>
+					</scopes>
+				</limit_to>
+				<fields>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+		</tabs>
+	</view>
+		
+	<view id="NS" title="New School">
+		<tabs>
+			<tab default="true" name="all" system="primo" search="search" description="Find Resources in All Consortium Libraries" title="Consortium Libraries">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363747326UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="audio">Audio</media_type>	
+						<media_type name="scores">Score</media_type>
+						<media_type name="images">Image</media_type>
+						<media_type name="maps">Map</media_type>
+						<media_type name="archives">Archival Materials</media_type>
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NS),scope:(CU),scope:(BHS),scope:(NYU),scope:(&#034;ALL&#034;),scope:(&#034;NYSID&#034;),scope:(&#034;NYHS&#034;),scope:(GEN)">all</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363358490UI0)]" dlname="indexField">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]" dlname="precisionOperator">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="dym" type="hidden">
+						<input type="hidden" name="addSearchFields[dym]" value="true" />	
+					</field>
+					<field name="lang" type="hidden">
+						<input type="hidden" name="addSearchFields[lang]" value="eng" />
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="onCampus" type="hidden">
+						<input type="hidden" name="addSearchFields[onCampus]" value="false" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab name="ns" system="primo" search="search" description="Find New School Resources" title="New School Resources">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363747326UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="audio">Audio</media_type>	
+						<media_type name="scores">Score</media_type>
+						<media_type name="images">Image</media_type>
+						<media_type name="maps">Map</media_type>
+						<media_type name="archives">Archival Materials</media_type>
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NS),scope:(GEN)"></scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363358490UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="articles" header="Search for Articles" description="Search for articles, images and media by subject" title="Articles and Databases">
+				<links>
+					<link name="search_native" href="/ns">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="databases" header="Search Databases A-Z" description="All databases by title" title="Databases A-Z">
+				<fields>
+					<field name="base" type="hidden">
+						<input type="hidden" name="addSearchFields[base]" value="databases" />
+					</field>
+					<field name="action" type="hidden">
+						<input type="hidden" name="addSearchFields[action]" value="find" />
+					</field>
+					<field name="query" type="text" title="Search for">
+						<input id="query" name="query" type="text" class="bobcat_embed_searchbox_textfield" title="Search for databases by title (e.g. PsycINFO, ERIC)" /> 
+					</field>
+				</fields>
+				<links>
+					<link name="list_all" href="/ns/databases/alphabetical">All databases A-Z</link>
+					<link name="search_native" href="/ns">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="umlaut" name="journals" header="Search for Journals" description="Locate journals by title or citation" title="Journals A-Z">
+				<fields>
+					<field name="umlaut.institution" type="hidden">
+						<input type="hidden" name="umlaut.institution" value="NS" /> 
+					</field>
+					<field name="rfr_id" type="hidden">
+						<input type="hidden" name="addSearchFields[rfr_id]" value="info:sid/sfxit.com:citation" /> 
+					</field>
+					<field name="rft_title" type="hidden">
+						<input type="hidden" id="rft_title" name="addSearchFields[rft.title]" />
+					</field>
+					<field name="rft_object_id" type="hidden">
+						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
+					</field>	
+					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
+						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+							<option value="contains">contains</option>
+							<option value="begins">begins with</option>
+							<option value="exact">exact match</option>
+						</select>
+					</field>
+					<field name="rft_jtitle" type="text" class="journal_title">
+						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+					</field>			
+					<field type="spacer" class="spacer">
+						<div></div>
+					</field>
+					<field name="rft_issn" type="text" title="OR ISSN" class="journal_issn">
+						<input id="issn" type="text" name="addSearchFields[rft.issn]"  />
+					</field>										
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-vid="umlaut.institution" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab name="nscr" system="primo" search="search" description="Search for Reserves by title or instructor name" title="Course Reserves">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363747326UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="audio">Audio</media_type>	
+						<media_type name="scores">Score</media_type>
+						<media_type name="images">Image</media_type>
+						<media_type name="maps">Map</media_type>
+						<media_type name="archives">Archival Materials</media_type>
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(TNSCR)"></scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363358492UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="sub">subject</record_attribute>
+						<record_attribute name="lsr03">In course name</record_attribute>
+						<record_attribute name="toc">In course number</record_attribute>
+						<record_attribute name="lsr04">In instructor</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+		</tabs>
+	</view>
+	
+	<view id="NYUAD" title="NYU in Abu Dhabi">
+		<tabs>
+			<tab default="true" name="all" system="primo" search="search" description="Books, E-Books, Journal Titles, Audio, Video &amp; More" title="Books &amp; More">
+				<limit_to>
+					<scopes name="scp.scps">
+						<scope name="scope:(GEN),scope:(&#034;NYUAD&#034;)">Abu Dhabi</scope>
+						<scope name="scope:(NS),scope:(CU),scope:(BHS),scope:(NYU),scope:(&#034;NYSID&#034;),scope:(&#034;NYHS&#034;),scope:(GEN),scope:(&#034;NYUAD&#034;)">All Collections</scope>
+					</scopes>	
+					<media_types name="addSearchFields[vl(363747932UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="scores">Score</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>
+					</media_types>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]" dlname="precisionOperator">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+					<record_attributes name="addSearchFields[vl(363418409UI0)]" dlname="indexField">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>
+				</limit_to>
+				<fields>
+					<field name="dym" type="hidden">
+						<input type="hidden" name="addSearchFields[dym]" value="true" />	
+					</field>
+					<field name="lang" type="hidden">
+						<input type="hidden" name="addSearchFields[lang]" value="eng" />
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="onCampus" type="hidden">
+						<input type="hidden" name="addSearchFields[onCampus]" value="false" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="articles" header="Search for Articles" description="Sorted by Subject and Content Type" title="Articles &amp; Databases">
+				<links>
+					<link name="search_native" href="/nyuad">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="xerxes" name="databases" header="Search Databases A-Z" description="All Databases by Title" title="Databases A-Z">
+				<fields>
+					<field name="base" type="hidden">
+						<input type="hidden" name="addSearchFields[base]" value="databases" />
+					</field>
+					<field name="action" type="hidden">
+						<input type="hidden" name="addSearchFields[action]" value="find" />
+					</field>
+					<field name="query" type="text" title="Search for">
+						<input id="query" name="query" type="text" class="bobcat_embed_searchbox_textfield" title="Search for databases by title (e.g. PsycINFO, ERIC)" /> 
+					</field>
+				</fields>
+				<links>
+					<link name="list_all" href="/nyuad/databases/alphabetical">All databases A-Z</link>
+					<link name="search_native" href="/nyuad">Search databases by subject or content type</link>
+				</links>
+			</tab>
+			<tab system="umlaut" name="journals" header="Search for Journals" description="Find E-journals by Title or Locate a Known Article" title="Journals">
+				<fields>
+					<field name="umlaut.institution" type="hidden">
+						<input type="hidden" name="umlaut.institution" value="NYUAD" /> 
+					</field>
+					<field name="rfr_id" type="hidden">
+						<input type="hidden" name="addSearchFields[rfr_id]" value="info:sid/sfxit.com:citation" /> 
+					</field>
+					<field name="rft_title" type="hidden">
+						<input type="hidden" id="rft_title" name="addSearchFields[rft.title]" />
+					</field>
+					<field name="rft_object_id" type="hidden">
+						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
+					</field>	
+					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
+						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+							<option value="contains">contains</option>
+							<option value="begins">begins with</option>
+							<option value="exact">exact match</option>
+						</select>
+					</field>
+					<field name="rft_jtitle" type="text" class="journal_title">
+						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+					</field>			
+					<field type="spacer" class="spacer">
+						<div></div>
+					</field>
+					<field name="rft_issn" type="text" title="OR ISSN" class="journal_issn">
+						<input id="issn" type="text" name="addSearchFields[rft.issn]"  />
+					</field>										
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-vid="umlaut.institution" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab name="nyuadcr" system="primo" search="search" description="Search by Course or Professor" title="Course Reserves">
+				<limit_to>
+					<scopes name="scp.scps">
+						<scope name="scope:(NYUADCR)">NYUAD Course Reserves</scope>
+						<scope name="scope:(NYUCR),scope:(BOBSTCR)">NYUNY Course Reserves</scope>
+					</scopes>
+					<media_types name="addSearchFields[vl(363747932UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="scores">Score</media_type>	
+						<media_type name="video">Video</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="audio">Audio</media_type>	
+					</media_types>
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+					<record_attributes name="addSearchFields[vl(363418411UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="lsr03">In course name</record_attribute>
+						<record_attribute name="toc">In course number</record_attribute>
+						<record_attribute name="lsr04">In instructor</record_attribute>
+					</record_attributes>	
+				</limit_to>
+				<fields>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+		</tabs>
+	</view>
+	
+	<view id="CU" title="Cooper Union">
+		<tabs>
+			<tab default="true" name="all" system="primo" search="search" description="Books &amp; e-books, journals &amp; e-journals, scripts, scores, archival materials, videos, sound recordings, and other materials in the Consortium libraries" title="Consortium Catalog">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363358325UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="audio">Audio</media_type>	
+						<media_type name="images">Image</media_type>
+						<media_type name="maps">Map</media_type>
+						<media_type name="archives">Archival Materials</media_type>
+						<media_type name="scores">Score</media_type>						
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(NS),scope:(CU),scope:(BHS),scope:(NYU),scope:(&#034;ALL&#034;),scope:(&#034;NYSID&#034;),scope:(&#034;NYHS&#034;),scope:(GEN)">all</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363176336UI0)]" dlname="indexField">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]" dlname="precisionOperator">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="dym" type="hidden">
+						<input type="hidden" name="addSearchFields[dym]" value="true" />	
+					</field>
+					<field name="lang" type="hidden">
+						<input type="hidden" name="addSearchFields[lang]" value="eng" />
+					</field>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="onCampus" type="hidden">
+						<input type="hidden" name="addSearchFields[onCampus]" value="false" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" pass-vid="true" mode="Advanced" />
+					  <text>Advanced search</text>
+				  </link>
+				</links>
+			</tab>
+			<tab name="cu" system="primo" search="search" description="Books &amp; e-books, journals &amp; e-journals, videos, and other materials in the Cooper Union Library" title="Cooper Catalog">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363358326UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="maps">Map</media_type>
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(CU),scope:(GEN)">cu</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363176336UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="lsr02">In publisher</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="isbn">ISBN/ISSN</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" pass-vid="true" mode="Advanced" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab system="umlaut" name="journals" description="Browse e-journals by title or search for a specific article" title="E-Journals">
+				<fields>
+					<field name="umlaut.institution" type="hidden">
+						<input type="hidden" name="umlaut.institution" value="CU" /> 
+					</field>
+					<field name="rfr_id" type="hidden">
+						<input type="hidden" name="addSearchFields[rfr_id]" value="info:sid/sfxit.com:citation" /> 
+					</field>
+					<field name="rft_title" type="hidden">
+						<input type="hidden" id="rft_title" name="addSearchFields[rft.title]" />
+					</field>
+					<field name="rft_object_id" type="hidden">
+						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
+					</field>	
+					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
+						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+							<option value="contains">contains</option>
+							<option value="begins">begins with</option>
+							<option value="exact">exact match</option>
+						</select>
+					</field>
+					<field name="rft_jtitle" type="text" class="journal_title">
+						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+					</field>			
+					<field type="spacer" class="spacer">
+						<div></div>
+					</field>
+					<field name="rft_issn" type="text" title="OR ISSN" class="journal_issn">
+						<input id="issn" type="text" name="addSearchFields[rft.issn]"  />
+					</field>										
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-vid="umlaut.institution" />
+					  <text>Advanced search</text>
+					</link>
+				</links>
+			</tab>
+			<tab name="cucr" system="primo" search="search" description="Search for Course Reserves" title="Course Reserves">
+				<limit_to>
+					<media_types name="addSearchFields[vl(363358325UI1)]">
+						<media_type name="all_items">All items</media_type>
+						<media_type name="books">Book</media_type>
+						<media_type name="journals">Journal</media_type>
+						<media_type name="video">Video</media_type>
+						<media_type name="audio">Audio</media_type>	
+						<media_type name="maps">Map</media_type>
+						<media_type name="archives">Archival Materials</media_type>
+						<media_type name="scores">Score</media_type>
+					</media_types>
+					<scopes display="none" name="scp.scps">
+						<scope name="scope:(CUCR)">all</scope>
+					</scopes>
+					<record_attributes name="addSearchFields[vl(363176338UI0)]">
+						<record_attribute name="any">Anywhere in the record</record_attribute>
+						<record_attribute name="creator">In author/creator</record_attribute>
+						<record_attribute name="title">In title</record_attribute>
+						<record_attribute name="sub">In subject</record_attribute>
+						<record_attribute name="lsr01">Call number</record_attribute>
+						<record_attribute name="usertag">In user tags</record_attribute>
+						<record_attribute name="lsr03">In course name</record_attribute>
+						<record_attribute name="toc">In course number</record_attribute>
+						<record_attribute name="lsr04">In instructor</record_attribute>
+					</record_attributes>	
+					<search_types name="addSearchFields[vl(1UIStartWith0)]">
+						<search_type name="contains">that contain my query words</search_type>
+						<search_type name="exact">with my exact phrase</search_type>
+						<search_type name="begins_with">starts with</search_type>
+					</search_types>
+				</limit_to>
+				<fields>
+					<field name="vl(freeText0)" type="text" title="Search for">
+						<input type="text" class="bobcat_embed_searchbox_textfield" name="addSearchFields[vl(freeText0)]" id="vl(freeText0)" />
+					</field>
+					<field name="fn" type="hidden">
+						<input type="hidden" name="addSearchFields[fn]" value="search" />	
+					</field>
+				</fields>
+				<links>
+					<link name="advanced_search">
+					  <querystring pass-tab="true" mode="Advanced" pass-vid="true" />
+					  <text>Advanced search</text>
+					</link>
+				</links>	
+			</tab>
+		</tabs>
+	</view>
+	
+	</views>
+	
+</configuration>

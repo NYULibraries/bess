@@ -1,0 +1,66 @@
+@import 'bobcat-widget.css';
+
+div.first {text-align:left;}
+
+h1 {text-align:left;margin-bottom:1em;margin-top:1em;}
+
+#ft {text-align:left;color:#999;}
+
+.first { background-color: #efefef;}
+
+.first fieldset {border: 0;margin:0;padding:0;}
+
+#snippetControl {
+	background-color: #efefef;
+	padding: 1em;
+	padding-left: 3em;
+}
+
+#snippetControl h2 {
+	margin-left: -1em;
+}
+
+table.snippetDisplayTable  {
+margin-top: 10px;
+}
+.snippetDisplayTable td {
+	vertical-align: top;
+	padding-bottom: .8em;
+	padding-right: .4em;
+}
+
+#snippetSubcategories {
+	margin: 1em;
+	margin-right: 0;
+}
+
+#snippetInclude textarea {
+	font-size: 80%;
+	height: 8em;
+	width: 90%;
+	margin-bottom: 1em;
+}
+
+#example {
+	border: 2px solid #ccc;
+	padding: 2em;	
+} 
+
+#example_legend {
+	font-size: 140%;
+}
+
+p.optionInfo {
+	color: #444;
+	font-size: 90%;
+	padding: .4em;
+	padding-left: 1em;
+}
+#snippetDefaultSearchType select,
+#snippetDefaultInRecord select,
+#snippetDefaultMediaType select {
+	margin-left:1em;
+	margin-top:1em;
+}
+
+
