@@ -12,7 +12,7 @@
 ###############
 
 RewriteEngine on
-RewriteBase /bobcat/
+RewriteBase /bobcat_embed/
 RewriteRule ^embed_gen(.*)$ index.php?action=generate [QSA]
 RewriteRule ^embed(.*)$ index.php?action=embed [QSA]
 
