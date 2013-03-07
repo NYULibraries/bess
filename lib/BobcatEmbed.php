@@ -75,7 +75,7 @@ class BobCat_Embed
 		$this->xerxes_search_url = $this->getConfigOption('xerxes_search_url');
 		$this->umlaut_search_url = $this->getConfigOption('umlaut_search_url');
 		
-		$this->page_xml->config->addChild("base_url", $_SERVER["SERVER_NAME"] . $_SERVER["SCRIPT_NAME"]);
+		$this->page_xml->config->addChild("base_url", "https://" . $_SERVER["SERVER_NAME"] . "/bobcat");
 		
 		//$this->page_xml->addChild('metalib_config','');
 		//$this->page_xml->metalib_config->addChild('session_id',$this->retrieveMetaLibSessionId());	
