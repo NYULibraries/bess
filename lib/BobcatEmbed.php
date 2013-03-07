@@ -19,6 +19,7 @@ class BobCat_Embed
 	
 	protected $config_xml = null;
 	protected $page_xml = null;
+	protected $base_url = null;
 	protected $primo_search_url = null;
 	protected $primo_dlsearch_url = null;
 	protected $xerxes_search_url = null;
@@ -71,6 +72,8 @@ class BobCat_Embed
 		$this->primo_dlsearch_url = $this->getConfigOption('primo_dlsearch_url');
 		$this->xerxes_search_url = $this->getConfigOption('xerxes_search_url');
 		$this->umlaut_search_url = $this->getConfigOption('umlaut_search_url');
+		
+		$this->page_xml->config->addChild("base_url", $_SERVER["SERVER_NAME"] . $_SERVER["SCRIPT_NAME"]);
 		
 		//$this->page_xml->addChild('metalib_config','');
 		//$this->page_xml->metalib_config->addChild('session_id',$this->retrieveMetaLibSessionId());	
