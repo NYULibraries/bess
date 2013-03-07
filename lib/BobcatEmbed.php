@@ -34,7 +34,7 @@ class BobCat_Embed
     // Find environment specific settings file, if config/settings is not present
     if (file_exists("config/settings." . $_SERVER['PHP_ENV'] . ".xml")) {
       $this->config_file = "config/settings." . $_SERVER['PHP_ENV'] . ".xml";
-	  elseif (!file_exists($this->config_file)) {
+	  } elseif (!file_exists($this->config_file)) {
 	    $this->config_file = "settings.local.xml";
 	  }
 		
