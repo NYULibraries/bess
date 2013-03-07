@@ -230,7 +230,7 @@ class BobCat_Embed
   /**
    * getServerName: Retrieve and format server name
   */
-  public function getServerName() {
+  protected function getServerName() {
     # Get server name for generating embed urls
 		if (isset($_SERVER["SERVER_NAME"])) {
 		  $server_name = (preg_match("/^http(s)?:\/\//i", $_SERVER["SERVER_NAME"])) ? $_SERVER["SERVER_NAME"] : "https://".$_SERVER["SERVER_NAME"];
