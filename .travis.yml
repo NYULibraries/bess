@@ -4,7 +4,7 @@ php:
   - 5.3
 before_script: 
   - pear install pear.phpqatools.org/phpqatools pear.netpirates.net/phpDox-0.4.0
-  - pecl install memcache
+  - pecl install xdebug
   - echo "zend_extension=xdebug.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 script: ant
 git:
