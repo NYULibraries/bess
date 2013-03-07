@@ -6,6 +6,6 @@ env:
   - PHP_ENV = test
 before_script: 
   - pear install pear.phpqatools.org/phpqatools pear.netpirates.net/phpDox-0.4.0
-script: ant
+script: phpunit tests/
 git:
   submodules: false
