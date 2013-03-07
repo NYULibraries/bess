@@ -22,13 +22,13 @@ class Bobcat_Embed_Generate extends BobCat_Embed
 		// As XML, mainly for debugging...no real reason to view generate page as XML
 		if ($this->page_xml->request->format == "xml") {
 			@header("Content-type: text/xml");
-			echo $this->page_xml->asXML();
+			print $this->page_xml->asXML();
 		} 
 		// Default view is as XSLT translated HTM:
 		else {
 			$html = transformXML("xsl/embed_gen.xsl", $this->page_xml->asXML(), $xsl_params);
 			@header("Content-type: text/html");
-			echo $html;
+			print $html;
 		}
 	}
 	
