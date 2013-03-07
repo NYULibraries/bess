@@ -2,9 +2,6 @@ language: php
 php:
   - 5.4
   - 5.3
-install: 
-  - pear install pear.phpqatools.org/phpqatools pear.netpirates.net/phpDox-0.4.0
-  - pecl install xdebug
-script: ant
+script: phpunit tests
 git:
   submodules: false
