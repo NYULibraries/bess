@@ -75,7 +75,7 @@ class BobCat_Embed
 		$this->xerxes_search_url = $this->getConfigOption('xerxes_search_url');
 		$this->umlaut_search_url = $this->getConfigOption('umlaut_search_url');
 		
-		$this->page_xml->config->addChild("base_url", "https://" . $_SERVER["SERVER_NAME"] . "/bobcat");
+		$this->page_xml->config->addChild("base_url", $this->getServerName() . "/bobcat");
 		
 		//$this->page_xml->addChild('metalib_config','');
 		//$this->page_xml->metalib_config->addChild('session_id',$this->retrieveMetaLibSessionId());	
@@ -221,10 +221,25 @@ class BobCat_Embed
 	/**
 	 * getUniqueKey: generate a unique key of size $length
 	 */
-	private function getUniqueKey($length = 0) {
-    	$code = md5(uniqid(rand(), true));
-    	if ($length > 0) return substr($code, 0, $length);
-		else return $code;
-    }
+  private function getUniqueKey($length = 0) {
+    $code = md5(uniqid(rand(), true));
+    if ($length > 0) return substr($code, 0, $length);
+    else return $code;
+  }
+  
+  /**
+   * getServerName: Retrieve and format server name
+  */
+  public function getServerName() {
+    # Get server name for generating embed urls
+		if (isset($_SERVER["SERVER_NAME"])) {
+		  $server_name = (preg_match("/^http(s)?:\/\//i", $_SERVER["SERVER_NAME"])) ? $_SERVER["SERVER_NAME"] : "https://".$_SERVER["SERVER_NAME"];
+	  } elseif (isset($_SERVER["ServerName"])) {
+	    $server_name = (preg_match("/^http(s)?:\/\//i", $_SERVER["ServerName"])) ? $_SERVER["ServerName"] : "https://".$_SERVER["ServerName"];
+	  } else {
+	    $server_name = "";
+	  }
+	  return $server_name;
+  }
 
 }

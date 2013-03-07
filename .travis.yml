@@ -2,6 +2,10 @@ language: php
 php:
   - 5.4
   - 5.3
-script: phpunit tests
+env:
+  - PHP_ENV = test
+install: 
+  - pear install pear.phpqatools.org/phpqatools pear.netpirates.net/phpDox-0.4.0
+script: ant
 git:
   submodules: false
