@@ -2,6 +2,6 @@ language: php
 php:
   - 5.4
   - 5.3
-script: phpunit tests
+script: ant
 git:
   submodules: false
