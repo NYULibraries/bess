@@ -33,17 +33,17 @@
 </xsl:template>
 
 <xsl:template name="gauges">
-  <xsl:if test="//gauges">
+  <xsl:if test="//gauges_api">
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
-      var gauges_apikey = '<xsl:value-of select="//gauges" />';
+      var gauges_api = '<xsl:value-of select="//gauges_api" />';
       var _gauges = _gauges || [];
       (function() {
         var t   = document.createElement('script');
         t.type  = 'text/javascript';
         t.async = true;
         t.id    = 'gauges-tracker';
-        t.setAttribute('data-site-id', gauges_apikey);
+        t.setAttribute('data-site-id', gauges_api);
         t.src = '//secure.gaug.es/track.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(t, s);
