@@ -15,7 +15,7 @@
 -->
 <xsl:template match="/*">
 	<xsl:call-template name="main" />
-	<xsl:value-of match="//gauges" />
+	<xsl:value-of select="//gauges" />
 </xsl:template>
 
 <!--
