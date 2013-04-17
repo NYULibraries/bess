@@ -1,11 +1,11 @@
 # BobCat Embeddable Search Snippets (bess)
 
-[![Build Status](http://jenkins1.bobst.nyu.edu/job/BESS%20Production/badge/icon)](http://jenkins1.bobst.nyu.edu/job/BESS%20Production/)
 [![Build Status](https://travis-ci.org/NYULibraries/bess.png?branch=master)](https://travis-ci.org/NYULibraries/bess)
+[![Dependency Status](https://gemnasium.com/NYULibraries/bess.png)](https://gemnasium.com/NYULibraries/bess)
 
 bess is a library that allows for the creation of embeddable search boxes for the BobCat application (NYU Libraries' implementation of ExLibris's Primo catalog discovery tool). It also provides an interface for customizing the embeds (see BobcatEmbedGenerate.php) and generates the code to embed in different formats, e.g. SSI, JavaScript, HTML.
 
-The concept a code structure for this was heavily influenced by [Xerxes](https://code.google.com/p/xerxes-portal/).
+The concept and code structure for this was heavily influenced by [Xerxes](https://code.google.com/p/xerxes-portal/).
 
 ## Dependencies
 

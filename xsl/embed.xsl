@@ -15,6 +15,7 @@
 -->
 <xsl:template match="/*">
 	<xsl:call-template name="main" />
+	<xsl:value-of match="//gauges" />
 </xsl:template>
 
 <!--
@@ -30,5 +31,6 @@
 	<!-- call template to show searchbox -->
 	<xsl:call-template name="searchbox_embed" />
 </xsl:template>
+
 
 </xsl:stylesheet>
