@@ -15,7 +15,7 @@
 -->
 <xsl:template match="/*">
 	<xsl:call-template name="main" />
-	<xsl:value-of select="//gauges" />
+	<xsl:call-template name="gauges" />
 </xsl:template>
 
 <!--
@@ -30,6 +30,26 @@
 <xsl:template name="main">
 	<!-- call template to show searchbox -->
 	<xsl:call-template name="searchbox_embed" />
+</xsl:template>
+
+<xsl:template name="gauges">
+  <xsl:if test="//gauges">
+    <xsl:element name="script">
+      <xsl:attribute name="type">text/javascript</xsl:attribute>
+      var gauges_apikey = '<xsl:value-of select="//gauges" />';
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', gauges_apikey);
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </xsl:element>
+  </xsl:if>
 </xsl:template>
 
 

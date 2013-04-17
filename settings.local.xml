@@ -35,6 +35,8 @@
 	<config name="metalib_pass" pass="false"></config>
 	<config name="metalib_inst" pass="false"></config>
 	
+	<config name="gauges_api" />
+	
 	<!-- views -->
 	<views>
 	  
