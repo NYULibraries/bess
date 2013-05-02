@@ -10,7 +10,7 @@
 
 <xsl:output method="html" encoding="utf-8" indent="yes" />
 
-<xsl:variable name="track" select="(//request/track = '') or (//request/track = 'true')" />
+<xsl:variable name="track" select="(//request/track != 'false') or not(//request/track)" />
 
 <!--
 	TEMPLATE
