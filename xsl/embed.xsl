@@ -10,6 +10,8 @@
 
 <xsl:output method="html" encoding="utf-8" indent="yes" />
 
+<xsl:variable name="track" select="//request/track != 'false'" />
+
 <!--
 	TEMPLATE
 -->
@@ -33,7 +35,7 @@
 </xsl:template>
 
 <xsl:template name="gauges">
-  <xsl:if test="//gauges_api != ''">
+  <xsl:if test="$track and (//gauges_api != '')">
     <xsl:element name="script">
       <xsl:attribute name="type">text/javascript</xsl:attribute>
       var gauges_api = '<xsl:value-of select="//gauges_api" />';
