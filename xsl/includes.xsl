@@ -45,7 +45,6 @@
 -->
 <xsl:template name="surround">
 	<xsl:element name="html">
-		<xsl:attribute name="xmlns">http://www.w3.org/1999/xhtml</xsl:attribute>
 		<xsl:attribute name="xml:lang">en</xsl:attribute>
 		<xsl:attribute name="lang">en</xsl:attribute>
 		
