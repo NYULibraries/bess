@@ -35,7 +35,7 @@ class Bobcat_Embed_Search extends BobCat_Embed
 	  	$url .= $this->xerxes_search_url;
 	  	$url .= ($_REQUEST['vid'] && strtolower($_REQUEST['vid']) != "nyu") ? "/".strtolower($_REQUEST['vid'])."?" : "?";
 	  	$url .= $querystring;
-	  	if ($_REQUEST['query'])	$url .= "&query=".$_REQUEST['query'];
+	  	if ($_REQUEST['query'])	$url .= "&query=".urlencode($_REQUEST['query']);
 	  }
 	  // Structure search URL for Umlaut
 	  elseif ($_REQUEST['system'] == 'umlaut') {
