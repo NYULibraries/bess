@@ -61,7 +61,7 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id">header</xsl:attribute>
 		    <a href="https://library.nyu.edu" target="_blank">
-		    	<img src="http://dev.library.nyu.edu/assets/images/nyulibraries-logo.svg" alt="NYU Libraries" width="233" height="30">
+		    	<img src="http://dev.library.nyu.edu/assets/images/nyulibraries-logo.svg" alt="NYU Libraries" width="233" height="30" />
 		    </a>
 			</xsl:element>
 			<xsl:element name="div">

@@ -10,7 +10,7 @@ The concept and code structure for this was heavily influenced by [Xerxes](https
 ## Dependencies
 
 * PHP >= 5.3
-* mod_rewrite 
+* mod_rewrite
 
 This application was written specifically to implement the BobCat application but can be generalized as an embed script for other discovery interfaces.
 
