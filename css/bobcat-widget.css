@@ -2,18 +2,23 @@
 	color: #000;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
+	background: white;
+	background: -webkit-linear-gradient(down,white,#efefef);
+	background: -o-linear-gradient(down,white,#efefef);
+	background: -moz-linear-gradient(down,white,#efefef);
+	background: linear-gradient(to bottom,white,#efefef);
 }
 
-.bobcat_embed a { 
+.bobcat_embed a {
 	text-decoration: none;
 }
 
 .bobcat_embed a:visited {
-	color: #0000CC; text-decoration: none; 
+	color: #0000CC; text-decoration: none;
 }
 
 .bobcat_embed a:active {
-	color: #FFCC33; text-decoration: none; 
+	color: #FFCC33; text-decoration: none;
 }
 
 .bobcat_embed a:hover {
@@ -56,15 +61,15 @@
 
 .bobcat_embed .bobcat_embed_tabs ul li {
   background-image: none !important;
-  margin: 0px !important; 
-  padding: 0px !important; 
+  margin: 0px !important;
+  padding: 0px !important;
   line-height: auto;
 }
 
 .bobcat_embed .bobcat_embed_tabs ul {
-  margin: 0px !important; 
+  margin: 0px !important;
   margin-left: 1px !important;
-	padding: 0 0px; 
+	padding: 0 0px;
 	list-style:none !important;
 }
 
@@ -130,7 +135,7 @@
 .bobcat_embed select {
   display: inline;
 }
-      
+
 .bobcat_embed input[type="text"],
 .bobcat_embed input[type="password"],
 .bobcat_embed select {
@@ -140,8 +145,6 @@
 .bobcat_embed .bobcat_embed_searchbox {
 	padding: 20px;
 	margin: 0px;
-	background-color: #fff;
-	background-image: url(https://library.nyu.edu/images/xerxes-bg.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;
 	border-top-width: 1px;
@@ -181,7 +184,7 @@
 }
 
 .bobcat_embed .bobcat_embed_searchbox form .bobcat_embed_searchbox_submit {
-	
+
 }
 
 .bobcat_embed .bobcat_embed_searchbox ul {
@@ -200,8 +203,4 @@
 
 .bobcat_embed .bobcat_embed_searchbox ul li:before{
    content: "\00BB\0020";
-} 
-
-
-
-
+}

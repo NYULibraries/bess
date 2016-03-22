@@ -1,4 +1,5 @@
 @import 'bobcat-widget.css';
+@import 'nyulibraries.css';
 
 div.first {text-align:left;}
 
@@ -43,8 +44,8 @@ margin-top: 10px;
 
 #example {
 	border: 2px solid #ccc;
-	padding: 2em;	
-} 
+	padding: 2em;
+}
 
 #example_legend {
 	font-size: 140%;
@@ -62,5 +63,3 @@ p.optionInfo {
 	margin-left:1em;
 	margin-top:1em;
 }
-
-

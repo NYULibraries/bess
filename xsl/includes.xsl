@@ -47,7 +47,7 @@
 	<xsl:element name="html">
 		<xsl:attribute name="xml:lang">en</xsl:attribute>
 		<xsl:attribute name="lang">en</xsl:attribute>
-		
+
 		<xsl:element name="head">
 			<xsl:element name="meta">
 				<xsl:attribute name="http-equiv">Content-Type</xsl:attribute>
@@ -55,15 +55,18 @@
 			</xsl:element>
 			<xsl:element name="title"><xsl:value-of select="$app_title" />: <xsl:call-template name="page_name" /></xsl:element>
 			<xsl:call-template name="additional_headers" />
-	
+
 		</xsl:element>
 		<xsl:element name="body">
 			<xsl:element name="div">
 				<xsl:attribute name="id">header</xsl:attribute>
+		    <a href="https://library.nyu.edu" target="_blank">
+		    	<img src="http://dev.library.nyu.edu/assets/images/nyulibraries-logo.svg" alt="NYU Libraries" width="233" height="30">
+		    </a>
 			</xsl:element>
 			<xsl:element name="div">
 				<xsl:attribute name="id">nav1</xsl:attribute>
-				
+
 				<xsl:element name="ul">
 					<xsl:attribute name="class">floatLeft</xsl:attribute>
 					<xsl:element name="li">
@@ -88,7 +91,7 @@
 							<xsl:call-template name="page_name" />
 					</xsl:element>
 				</xsl:element>
-				
+
 				<xsl:element name="ul">
 					<xsl:attribute name="class">floatRight</xsl:attribute>
 					<xsl:element name="li"></xsl:element>
@@ -98,9 +101,9 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id">maincontent</xsl:attribute>
 				<xsl:attribute name="class">clearBoth</xsl:attribute>
-				
+
 				<xsl:call-template name="main" />
-				
+
 				<xsl:element name="div">
 					<xsl:attribute name="id">ft</xsl:attribute>
 					<xsl:element name="p"><xsl:value-of select="$text_footer" /></xsl:element>
@@ -109,9 +112,9 @@
 
 		</xsl:element>
 
-		
+
 	</xsl:element>
-	
+
 </xsl:template>
 
 
@@ -121,10 +124,9 @@
 -->
 <xsl:template name="additional_headers">
 
-	<link rel="SHORTCUT ICON" href="{$home_url}/images/favicon.ico" />
+	<link rel="SHORTCUT ICON" href="{$home_url}/favicon.ico" />
 
 	<link rel="stylesheet" type="text/css" href="{$base_url}/css/reset-fonts-grids.css" />
-	<link rel="stylesheet" type="text/css" href="{$home_url}/css/common/basic-xerxes.css" />
 	<link rel="stylesheet" type="text/css" href="{$base_url}/css/local.css" />
 
 </xsl:template>
@@ -136,28 +138,28 @@
 -->
 <xsl:template name="searchbox_embed">
 
-	<!-- 
+	<!--
 		option to load javascript librar(y/ies)
 	-->
 	<script type="text/javascript" src="{$base_url}/javascript/embed-functions-nolib.js"></script>
 
-			
-	
+
+
 	<xsl:if test="//request/action = 'embed' and //request/disp_embed_css = 'true'">
 		<link rel="stylesheet" type="text/css" href="{$base_url}/css/bobcat-widget.css" />
-	</xsl:if>	
-	
+	</xsl:if>
+
 	<div class="bobcat_embed" id="bobcat_embed_{$unique_key}">
-		
+
 		<!-- create tabs as an unordered list for each tab in this view -->
-		
+
 		<div class="bobcat_embed_tabs_wrapper" id="bobcat_embed_tabs_wrapper_{$unique_key}">
 			<div class="bobcat_embed_tabs" id="bobcat_embed_tabs_{$unique_key}">
 				<ul>
 					<xsl:for-each select="//view[@id=$id]/tabs/tab">
 					<li id="{@name}_{$unique_key}">
 						<xsl:attribute name="class">
-							
+
 						<!-- give tabs classes based on position for better styling capabilities -->
 						<xsl:choose>
 							<xsl:when test="position() = 1">
@@ -170,11 +172,11 @@
 							<xsl:text>bobcat_embed_tabs_inside</xsl:text>
 							</xsl:otherwise>
 						</xsl:choose>
-						
+
 						<xsl:if test="(//request/disp_default_tab = @name) or (not(//request/disp_default_tab) and (./@default = 'true'))">
 						<xsl:text> bobcat_embed_tabs_selected bobcat_embed_tabs_selected_</xsl:text><xsl:value-of select="$unique_key" />
 						</xsl:if>
-						
+
 						</xsl:attribute>
 						<a>
 						  <xsl:if test="not(@link_out = 'true')">
@@ -206,7 +208,7 @@
 								</xsl:otherwise>
 							</xsl:choose>
 							</xsl:attribute>
-							
+
 						<xsl:value-of select="@title" />
 						</a>
 					</li>
@@ -214,20 +216,20 @@
 				</ul>
 			</div>
 		</div><!-- /tabs wrapper -->
-		
+
 		<div class="bobcat_embed_searchbox" id="bobcat_embed_searchbox_{$unique_key}">
-			
+
 			<!-- FOR EACH TAB IN VIEW -->
 			<xsl:for-each select="//view[@id=$id]/tabs/tab">
 
 			<div class="bobcat_embed_tab_content bobcat_embed_tab_content_{$unique_key}">
 				<xsl:attribute name="id">bobcat_embed_tab_content_<xsl:value-of select="./@name" />_<xsl:value-of select="$unique_key" /></xsl:attribute>
-				
+
 				<!-- hide this tab if it's not the default tab -->
 				<xsl:if test="(./@name != //request/disp_default_tab) or (not(//request/disp_default_tab) and (position() != 1))">
 					<xsl:attribute name="style">display:none;</xsl:attribute>
 				</xsl:if>
-			
+
 			<!-- start form to send search request -->
 			<form action="{$base_url}/index.php" method="get" name="form1" target="_blank">
 				<!-- necessary fields for primo search -->
@@ -236,11 +238,11 @@
 				<input type="hidden" name="vid" value="{$vid}" />
 				<input type="hidden" name="system" value="{./@system}" />
 				<input type="hidden" name="search" value="{./@search}" />
-					
+
 				<xsl:for-each select="./fields/field[@type='hidden']">
 					<xsl:copy-of select="./node()" />
 				</xsl:for-each>
-				
+
 				<!-- search text field and submit button -->
 				<xsl:if test="count(./fields/field) &gt; 0">
 				<div class="bobcat_embed_search_field">
@@ -257,25 +259,25 @@
 							<input class="bobcat_embed_searchbox_submit" type="submit" name="Submit" value="GO" />
 						</span>
 					</xsl:if>
-				</div>	
+				</div>
 				</xsl:if>
-				
+
 				<xsl:if test="count(./fields/field) = 0">
 					<div class="bobcat_embed_search_spacer">
 					</div>
 				</xsl:if>
-				
+
 				<xsl:if test="./limit_to">
 				<!-- "limit to" options -->
 				<div class="bobcat_embed_limit_to">
-					
+
 					<!-- hide if set in query string -->
 					<xsl:if test="//request/disp_show_limit_to = 'false'">
 						<xsl:attribute name="style">display:none;</xsl:attribute>
 					</xsl:if>
-					
+
 					<xsl:text>Limit to </xsl:text>
-					
+
 					<!-- if there are any media types and they aren't set to display=false in config, print them -->
 					<xsl:if test="count(./limit_to/media_types/media_type) &gt; 0">
 					<span class="bobcat_embed_media_types">
@@ -289,9 +291,9 @@
 					</select>
 					</span>
 					</xsl:if>
-					
+
 					<xsl:text> </xsl:text>
-					
+
 					<!-- if there are any search types and they aren't set to display=false in config, print them -->
 					<xsl:if test="count(./limit_to/search_types/search_type) &gt; 0">
 					<span class="bobcat_embed_search_type">
@@ -302,9 +304,9 @@
 					</select>
 					</span>
 					</xsl:if>
-							
+
 					<xsl:text> </xsl:text>
-					
+
 					<!-- if there are any record attributes and they aren't set to display=false in config, print them -->
 					<xsl:if test="count(./limit_to/record_attributes/record_attribute) &gt; 0">
 					<span class="bobcat_embed_record_attributes">
@@ -318,9 +320,9 @@
 					</select>
 					</span>
 					</xsl:if>
-					
+
 					<xsl:text> </xsl:text>
-					
+
 					<!-- if there are any scopes and they aren't set to display=false in config, print them -->
 					<xsl:if test="count(./limit_to/scopes/scope) &gt; 0">
 					<span class="bobcat_embed_scopes">
@@ -334,11 +336,11 @@
 						</xsl:for-each>
 					</select>
 					</span>
-					</xsl:if>								
+					</xsl:if>
 
-				</div><!-- /end bobcat_embed_limit_to -->	
+				</div><!-- /end bobcat_embed_limit_to -->
 				</xsl:if>
-				
+
 				<xsl:if test="count(./links/link) &gt; 0">
 					<div class="bobcat_embed_links">
 						<ul>
@@ -402,11 +404,11 @@
 					          </xsl:otherwise>
 				          </xsl:choose>
 						    </xsl:element>
-							</li>	
+							</li>
 							</xsl:for-each>
 						</ul>
 					</div>
-				</xsl:if>		
+				</xsl:if>
 
 			</form>
 			</div><!-- /end bobcat_embed_tab_content -->
