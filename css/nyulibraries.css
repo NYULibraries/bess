@@ -178,8 +178,8 @@ label {
 /*Wrappers*/
 #header {
   background-color: #57068c;
-  margin: auto !important;
   padding: 30px !important;
+  text-align: left !important;
 }
 
 #maincontent {
