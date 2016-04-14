@@ -231,7 +231,7 @@
 				</xsl:if>
 
 			<!-- start form to send search request -->
-			<form action="{$base_url}/index.php" method="get" name="form1" target="_blank">
+			<form action="{$base_url}/index.php" method="get" name="form1" target="_blank" accept-charset="utf-8">
 				<!-- necessary fields for primo search -->
 				<input type="hidden" name="action" value="search" />
 				<input type="hidden" name="tab" value="{./@name}" />
