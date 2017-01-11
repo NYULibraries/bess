@@ -189,6 +189,9 @@
 						  <xsl:attribute name="alt"><xsl:value-of select="@description" /></xsl:attribute>
 							<xsl:attribute name="href">
 							<xsl:choose>
+								<xsl:when test="@link_out = 'true' and @link_out_href">
+									<xsl:value-of select="@link_out_href" />
+								</xsl:when>
 								<xsl:when test="@system = 'xerxes' and @name = 'articles'">
 									<xsl:value-of select="$xerxes_search_url" />
 									<xsl:text>?institution=</xsl:text>
