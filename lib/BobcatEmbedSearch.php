@@ -10,7 +10,7 @@ require_once('BobcatEmbed.php');
  */
 class Bobcat_Embed_Search extends BobCat_Embed
 {
-	const DEBUG = true;
+	const DEBUG = false;
   /**
    * Upon submission of the form, generate the correct url to redirect to
    */
