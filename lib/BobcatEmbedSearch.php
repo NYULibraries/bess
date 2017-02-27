@@ -47,7 +47,6 @@ class Bobcat_Embed_Search extends BobCat_Embed
 		elseif ($_REQUEST['system'] == 'libguides') {
 			$url .= $this->libguides_search_url;
 			$url .= $querystring;
-			if ($_REQUEST['q'])	$url .= "&q=".urlencode($_REQUEST['q']);
 		}
 	  // Structure search URL for Primo
 	  elseif ($_REQUEST['system'] == 'primo') {

@@ -20,6 +20,7 @@
 <xsl:variable name="primo_search_url" select="//config/primo_search_url" />
 <xsl:variable name="xerxes_search_url" select="//config/xerxes_search_url" />
 <xsl:variable name="umlaut_search_url" select="//config/umlaut_search_url" />
+<xsl:variable name="libguides_search_url" select="//config/libguides_search_url" />
 <xsl:variable name="id">
 	<xsl:choose>
 		<xsl:when test="(//request/disp_select_view) and not(//request/disp_select_view = '')">
@@ -61,7 +62,7 @@
 			<xsl:element name="div">
 				<xsl:attribute name="id">header</xsl:attribute>
 		    <a href="https://library.nyu.edu" target="_blank">
-		    	<img src="http://dev.library.nyu.edu/assets/images/nyulibraries-logo.svg" alt="NYU Libraries" width="233" height="30" />
+		    	<img src="http://library.nyu.edu/assets/images/nyulibraries-logo.svg" alt="NYU Libraries" width="233" height="30" />
 		    </a>
 			</xsl:element>
 			<xsl:element name="div">
@@ -205,6 +206,9 @@
 								</xsl:when>
 								<xsl:when test="@system = 'umlaut' and @name = 'journals'">
 									<xsl:value-of select="$umlaut_search_url" />/<xsl:value-of select="translate($vid, $uppercase, $smallcase)" />
+								</xsl:when>
+								<xsl:when test="@system = 'libguides' and @name = 'subjectguides'">
+									<xsl:value-of select="$libguides_search_url" />
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:value-of select="$primo_search_url" />?vid=<xsl:value-of select="$vid" />&amp;tab=<xsl:value-of select="@name" />
@@ -366,6 +370,9 @@
 					              </xsl:when>
 					              <xsl:when test="ancestor::tab[@system='xerxes']">
 						              <xsl:value-of select="$xerxes_search_url" /><xsl:value-of select="@href" />
+					              </xsl:when>
+												<xsl:when test="ancestor::tab[@system='libguides']">
+						              <xsl:value-of select="$libguides_search_url" /><xsl:value-of select="@href" />
 					              </xsl:when>
 					              <xsl:otherwise />
 				              </xsl:choose>
