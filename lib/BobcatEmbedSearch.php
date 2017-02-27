@@ -43,6 +43,12 @@ class Bobcat_Embed_Search extends BobCat_Embed
 	  	$url .= $querystring;
 	  	if ($_REQUEST['vid'])	$url .= "&umlaut.institution=".$_REQUEST['vid'];
 	  }
+		// Structure search URL for LibGuides
+		elseif ($_REQUEST['system'] == 'libguides') {
+			$url .= $this->libguides_search_url;
+			$url .= $querystring;
+			if ($_REQUEST['q'])	$url .= "&q=".urlencode($_REQUEST['q']);
+		}
 	  // Structure search URL for Primo
 	  elseif ($_REQUEST['system'] == 'primo') {
 	  	if ($_REQUEST['search'] == 'dl') {
