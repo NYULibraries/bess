@@ -10,13 +10,13 @@ require_once('xml_functions.php');
  */
 class BobCat_Embed
 {
-	
+
 	private $config_file = "config/settings.xml";
 	private $metalib_url = null;
 	private $metalib_user = null;
 	private $metalib_pass = null;
 	private $metalib_inst = null;
-	
+
 	protected $config_xml = null;
 	protected $page_xml = null;
 	protected $base_url = null;
@@ -26,18 +26,18 @@ class BobCat_Embed
 	protected $umlaut_search_url = null;
 
   /**
-   * Turn the page into an XML document based on the config 
+   * Turn the page into an XML document based on the config
    * settings so it can be translated by XSLT
    */
 	public function __construct() {
-	  
+
     // Find environment specific settings file, if config/settings is not present
     if (isset($_SERVER['PHP_ENV']) && file_exists("config/settings." . $_SERVER['PHP_ENV'] . ".xml")) {
       $this->config_file = "config/settings." . $_SERVER['PHP_ENV'] . ".xml";
 	  } elseif (!file_exists($this->config_file)) {
 	    $this->config_file = "settings.local.xml";
 	  }
-		
+
 		//Retrieve config file and validate that it is in the proper format
 		if ( ! $this->config_xml instanceof SimpleXMLElement ) {
 			try {
@@ -51,16 +51,16 @@ class BobCat_Embed
 				exit ;
 			}
 		}
-	
+
 		//Initialize private vars
 		$this->metalib_url = $this->getConfigOption('metalib_url');
 		$this->metalib_user = $this->getConfigOption('metalib_user');
 		$this->metalib_pass = $this->getConfigOption('metalib_pass');
 		$this->metalib_inst = $this->getConfigOption('metalib_inst');
-	
+
 		//Initialize this page's XML
 		$this->page_xml = new SimpleXMLElement("<bobcat_embed />");
-		
+
 		//Add all config variables
 		$this->page_xml->addChild('config','');
 		if (count($this->config_xml->xpath("//config[not(@pass) or @pass='true']")) > 0) {
@@ -74,12 +74,13 @@ class BobCat_Embed
 		$this->primo_dlsearch_url = $this->getConfigOption('primo_dlsearch_url');
 		$this->xerxes_search_url = $this->getConfigOption('xerxes_search_url');
 		$this->umlaut_search_url = $this->getConfigOption('umlaut_search_url');
-		
+		$this->libguides_search_url = $this->getConfigOption('libguides_search_url');
+
 		$this->page_xml->config->addChild("base_url", $this->getServerName() . "/bobcat");
-		
+
 		//$this->page_xml->addChild('metalib_config','');
-		//$this->page_xml->metalib_config->addChild('session_id',$this->retrieveMetaLibSessionId());	
-		
+		//$this->page_xml->metalib_config->addChild('session_id',$this->retrieveMetaLibSessionId());
+
 		//Add query string options to XML
 		$this->page_xml->addChild('request','');
 		$this->page_xml->request->addChild('unique_key',$this->getUniqueKey(10));
@@ -98,7 +99,7 @@ class BobCat_Embed
 	  }
 
 	}
-	
+
 	/**
 	 * getConfigOption: retrieve config option value from config file
 	 *
@@ -107,7 +108,7 @@ class BobCat_Embed
 	 */
 	protected function getConfigOption($option) {
 		try {
-			$option_container = $this->config_xml->xpath("//config[@name='".$option."']"); 
+			$option_container = $this->config_xml->xpath("//config[@name='".$option."']");
 			if ($option_container[0] instanceof SimpleXMLElement) {
 			 	return $option_container[0][0];
 			} else {
@@ -118,7 +119,7 @@ class BobCat_Embed
 			exit ;
 		}
 	}
-	
+
 	/**
 	 * getAttributeValue retrieve attribute value from config file
 	 *
@@ -151,9 +152,9 @@ class BobCat_Embed
 	protected function getViews() {
 		try {
 			if (isset($_REQUEST['action']) && $_REQUEST['action'] == "embed" && isset($_REQUEST['disp_select_view'])) {
-				$views_container = $this->config_xml->xpath("//views/view[@id='".$_REQUEST['disp_select_view']."']"); 
+				$views_container = $this->config_xml->xpath("//views/view[@id='".$_REQUEST['disp_select_view']."']");
 			} else {
-				$views_container = $this->config_xml->xpath("//views"); 
+				$views_container = $this->config_xml->xpath("//views");
 			}
 			if ($views_container[0] instanceof SimpleXMLElement) {
 			 	return $views_container;
@@ -165,7 +166,7 @@ class BobCat_Embed
 			exit ;
 		}
 	}
-	
+
 	/**
 	 * retrieveMetaLibSessionId: retrieve a MetaLib session ID for making other x-service calls
 	 *
@@ -176,7 +177,7 @@ class BobCat_Embed
 			//Retrieve ML session id
 			$ml_auth = simplexml_load_string(getXML($this->metalib_url."/X?op=login_request&user_name=".$this->metalib_user."&user_password=".$this->metalib_pass));
 			$ml_auth_path = $ml_auth->xpath("//session_id");
-		
+
 			if ($ml_auth_path[0] instanceof SimpleXMLElement) {
 			 	return $ml_auth_path[0][0];
 			} else {
@@ -187,7 +188,7 @@ class BobCat_Embed
 			exit ;
 		}
 	}
-	
+
 	/**
 	 * retrieveMetaLibQuickSets: retrieve an object with all the PRIMO user quicksets from MetaLib
 	 *
@@ -199,14 +200,14 @@ class BobCat_Embed
 		$ml_qs_path = $ml_qs->xpath("//retrieve_quick_sets_response");
 		return $ml_qs_path;
 	}
-		
+
 	/**
 	 * populateViews: generate an XML subtree for each view in the config table
 	 */
 	protected function populateViews() {
 		//load up subtree of views from config file
 		$views = $this->getViews();
-		
+
 		// Create new DOMElements from the two SimpleXMLElements
 		$dom_master = dom_import_simplexml($this->page_xml);
 		$dom_sub  = dom_import_simplexml($views[0]);
@@ -217,7 +218,7 @@ class BobCat_Embed
 		// Append the view tree to page xml in the dictionary
 		$dom_master->appendChild($dom_sub);
 	}
-	
+
 	/**
 	 * getUniqueKey: generate a unique key of size $length
 	 */
@@ -226,7 +227,7 @@ class BobCat_Embed
     if ($length > 0) return substr($code, 0, $length);
     else return $code;
   }
-  
+
   /**
    * getServerName: Retrieve and format server name
   */
