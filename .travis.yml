@@ -1,9 +1,7 @@
 language: php
 php:
   - 5.4
-  - 5.3
 env:
   - PHP_ENV = test
 script: phpunit tests/
-git:
-  submodules: false
+sudo: false
