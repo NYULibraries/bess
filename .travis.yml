@@ -4,4 +4,6 @@ php:
 env:
   - PHP_ENV = test
 script: phpunit tests/
+git:
+  submodules: false
 sudo: false
