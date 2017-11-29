@@ -91,7 +91,7 @@
 
           <xsl:attribute name="id">header</xsl:attribute>
           <a href="https://library.nyu.edu" target="_blank">
-            <img alt="NYU Libraries" height="30" src="http://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
+            <img alt="NYU Libraries" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
           </a>
         </xsl:element>
 
