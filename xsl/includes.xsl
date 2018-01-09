@@ -188,7 +188,6 @@
     <!--
 		option to load javascript librar(y/ies)
 	-->
-    <script src="{$base_url}/javascript/embed-functions-nolib.js" type="text/javascript"></script>
     <script src="https://cdn.library.nyu.edu/bobcat/embed-functions-nolib.js" type="text/javascript"></script>
 
     <xsl:if test="//request/action = 'embed' and //request/disp_embed_css = 'true'">
