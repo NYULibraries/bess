@@ -175,6 +175,7 @@
     <link href="{$home_url}/favicon.ico" rel="SHORTCUT ICON"/>
 
     <link href="{$base_url}/css/reset-fonts-grids.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.library.nyu.edu/bobcat_embed/bobcat-widget.css" rel="stylesheet" type="text/css" />
     <link href="{$base_url}/css/local.css" rel="stylesheet" type="text/css"/>
 
   </xsl:template>
@@ -188,10 +189,10 @@
     <!--
 		option to load javascript librar(y/ies)
 	-->
-    <script src="https://cdn.library.nyu.edu/bobcat/embed-functions-nolib.js" type="text/javascript"></script>
+    <script src="https://cdn.library.nyu.edu/bobcat_embed/embed-functions-nolib.js" type="text/javascript"></script>
 
     <xsl:if test="//request/action = 'embed' and //request/disp_embed_css = 'true'">
-      <link href="{$base_url}/css/bobcat-widget.css" rel="stylesheet" type="text/css"/>
+      <link href="https://cdn.library.nyu.edu/bobcat_embed/bobcat-widget.css" rel="stylesheet" type="text/css" />
     </xsl:if>
 
     <div class="bobcat_embed" id="bobcat_embed_{$unique_key}">
