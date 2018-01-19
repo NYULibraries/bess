@@ -3,7 +3,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl" exclude-result-prefixes="php">
-	
+
 <xsl:variable name="breadcrumb_separator">&gt;</xsl:variable>
 
 <xsl:variable name="text_header_snippet_generate">Embed</xsl:variable>
@@ -19,10 +19,6 @@
 <xsl:variable name="text_snippet_display_no">no</xsl:variable>
 <xsl:variable name="text_snippet_display_all">All items</xsl:variable>
 <xsl:variable name="text_snippet_display_all_record_parts">Anywhere in record</xsl:variable>
-
-<xsl:variable name="text_snippet_which_jslib">Use JavaScript library:</xsl:variable>
-<xsl:variable name="text_snippet_jslib_none">None</xsl:variable>
-<xsl:variable name="text_snippet_jslib_prototype">Prototype</xsl:variable>
 
 <xsl:variable name="text_snippet_show_css">Include CSS:</xsl:variable>
 <xsl:variable name="text_snippet_show_css_explain">Including the CSS works imperfectly. If you need to, it's better to define CSS styles for the snippet in the external website itself. </xsl:variable>
