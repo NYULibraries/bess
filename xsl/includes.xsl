@@ -337,7 +337,7 @@
                             <xsl:attribute name="style">display:none;</xsl:attribute>
                           </xsl:if>
                           <xsl:value-of select="./@title"/>
-                        </label>
+                        </xsl:element>
                       </xsl:if>
 
                       <xsl:copy-of select="./node()"/>
