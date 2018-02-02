@@ -332,7 +332,7 @@
 
                       <xsl:if test="./@name != ''">
                         <xsl:element name="label">
-                          <xsl:attribute name="for"><xsl:copy-of select="./@name" /></xsl:attribute>
+                          <xsl:attribute name="for"><xsl:value-of select="./@name" /></xsl:attribute>
                           <xsl:if test="./@hide-label = 'true'">
                             <xsl:attribute name="style">display:none;</xsl:attribute>
                           </xsl:if>
