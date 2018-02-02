@@ -135,14 +135,14 @@
 						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
 					</field>	
 					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
-						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+						<select name="addSearchFields[umlaut.title_search_type]" aria-label="Precision operator" class="sfx_title_search">
 							<option value="contains">contains</option>
 							<option value="begins">begins with</option>
 							<option value="exact">exact match</option>
 						</select>
 					</field>
 					<field name="rft_jtitle" type="text" class="journal_title">
-						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+						<input aria-label="Journal title" id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
 					</field>			
 					<field type="spacer" class="spacer">
 						<div></div>
@@ -296,14 +296,14 @@
 						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
 					</field>	
 					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
-						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+						<select name="addSearchFields[umlaut.title_search_type]" aria-label="Precision operator" class="sfx_title_search">
 							<option value="contains">contains</option>
 							<option value="begins">begins with</option>
 							<option value="exact">exact match</option>
 						</select>
 					</field>
 					<field name="rft_jtitle" type="text" class="journal_title">
-						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+						<input aria-label="Journal title" id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
 					</field>			
 					<field type="spacer" class="spacer">
 						<div></div>
@@ -503,14 +503,14 @@
 						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
 					</field>	
 					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
-						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+						<select name="addSearchFields[umlaut.title_search_type]" aria-label="Precision operator" class="sfx_title_search">
 							<option value="contains">contains</option>
 							<option value="begins">begins with</option>
 							<option value="exact">exact match</option>
 						</select>
 					</field>
 					<field name="rft_jtitle" type="text" class="journal_title">
-						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+						<input aria-label="Journal title" id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
 					</field>			
 					<field type="spacer" class="spacer">
 						<div></div>
@@ -668,14 +668,14 @@
 						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
 					</field>	
 					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
-						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+						<select name="addSearchFields[umlaut.title_search_type]" aria-label="Precision operator" class="sfx_title_search">
 							<option value="contains">contains</option>
 							<option value="begins">begins with</option>
 							<option value="exact">exact match</option>
 						</select>
 					</field>
 					<field name="rft_jtitle" type="text" class="journal_title">
-						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+						<input aria-label="Journal title" id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
 					</field>			
 					<field type="spacer" class="spacer">
 						<div></div>
@@ -854,14 +854,14 @@
 						<input type="hidden" id="rft_object_id" name="addSearchFields[rft.object_id]" />
 					</field>	
 					<field name="umlaut_title_search_type" type="select" title="Journal Title" class="journal_search_type">
-						<select name="addSearchFields[umlaut.title_search_type]" class="sfx_title_search">
+						<select name="addSearchFields[umlaut.title_search_type]" aria-label="Precision operator" class="sfx_title_search">
 							<option value="contains">contains</option>
 							<option value="begins">begins with</option>
 							<option value="exact">exact match</option>
 						</select>
 					</field>
 					<field name="rft_jtitle" type="text" class="journal_title">
-						<input id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
+						<input aria-label="Journal title" id="journal_title" name="addSearchFields[rft.jtitle]" type="text" />
 					</field>			
 					<field type="spacer" class="spacer">
 						<div></div>
