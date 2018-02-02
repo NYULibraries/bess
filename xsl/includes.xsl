@@ -331,7 +331,12 @@
                     <span class="bobcat_embed_{./@class}">
 
                       <xsl:if test="./@name != ''">
-                        <label for="{./@name}"><xsl:value-of select="./@title"/>
+                        <xsl:element name="label">
+                          <xsl:attribute name="for"><xsl:copy-of select="./@name" /></xsl:attribute>
+                          <xsl:if test="./@hide-label = 'true'">
+                            <xsl:attribute name="style">display:none;</xsl:attribute>
+                          </xsl:if>
+                          <xsl:value-of select="./@title"/>
                         </label>
                       </xsl:if>
 
@@ -428,7 +433,7 @@
                       </xsl:if>
                       <xsl:text>In </xsl:text>
                       <label for="{./limit_to/scopes/@name}" style="display:none;">Scopes</label>
-                      <select aria-label="Scopes" name="{./limit_to/scopes/@name}">
+                      <select aria-label="Scopes" id="{./limit_to/scopes/@name}" name="{./limit_to/scopes/@name}">
 
                         <xsl:for-each select="./limit_to/scopes/scope">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
