@@ -427,7 +427,7 @@
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
                       <xsl:text>In </xsl:text>
-                      <label for="input_{./limit_to/scopes/@name}" style="display:none;">Scopes</label>
+                      <label for="{./limit_to/scopes/@name}" style="display:none;">Scopes</label>
                       <select aria-label="Scopes" name="{./limit_to/scopes/@name}">
 
                         <xsl:for-each select="./limit_to/scopes/scope">
