@@ -159,10 +159,7 @@
           </xsl:element>
         </main>
         <xsl:element name="footer">
-
-          <xsl:attribute name="id">ft</xsl:attribute>
-
-          <xsl:element name="p"><xsl:value-of select="$text_footer"/></xsl:element>
+          <xsl:element name="div"><xsl:value-of select="$text_footer"/></xsl:element>
         </xsl:element>
 
       </xsl:element>
