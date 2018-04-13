@@ -86,7 +86,7 @@
       </xsl:element>
 
       <xsl:element name="body">
-
+        <header>
         <xsl:element name="div">
 
           <xsl:attribute name="id">header</xsl:attribute>
@@ -95,6 +95,7 @@
           </a>
         </xsl:element>
 
+        <nav>
         <xsl:element name="div">
 
           <xsl:attribute name="id">nav1</xsl:attribute>
@@ -143,21 +144,25 @@
             <xsl:element name="li"></xsl:element>
           </xsl:element>
         </xsl:element>
+        </nav>
+      </header>
 
-        <xsl:element name="div">
-
-          <xsl:attribute name="id">maincontent</xsl:attribute>
-
-          <xsl:attribute name="class">clearBoth</xsl:attribute>
-
-          <xsl:call-template name="main"/>
-
+        <main>
           <xsl:element name="div">
 
-            <xsl:attribute name="id">ft</xsl:attribute>
+            <xsl:attribute name="id">maincontent</xsl:attribute>
 
-            <xsl:element name="p"><xsl:value-of select="$text_footer"/></xsl:element>
+            <xsl:attribute name="class">clearBoth</xsl:attribute>
+
+            <xsl:call-template name="main"/>
+
           </xsl:element>
+        </main>
+        <xsl:element name="footer">
+
+          <xsl:attribute name="id">ft</xsl:attribute>
+
+          <xsl:element name="p"><xsl:value-of select="$text_footer"/></xsl:element>
         </xsl:element>
 
       </xsl:element>
