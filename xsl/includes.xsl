@@ -385,7 +385,7 @@
 
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
-                      <label for="input_{./limit_to/media_types/@name}" style="display:none;">Media types</label>
+                      
                       <select aria-label="Media types" id="input_{./limit_to/media_types/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/media_types/@name}">
 
                         <xsl:for-each select="./limit_to/media_types/media_type">
@@ -400,7 +400,7 @@
                   <!-- if there are any search types and they aren't set to display=false in config, print them -->
                   <xsl:if test="count(./limit_to/search_types/search_type) &gt; 0">
                     <span class="bobcat_embed_search_type">
-                      <label for="input_{./limit_to/search_types/@name}" style="display:none;">Precision operator</label>
+
                       <select aria-label="Precision operator" id="input_{./limit_to/search_types/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/search_types/@name}">
 
                         <xsl:for-each select="./limit_to/search_types/search_type">
@@ -420,7 +420,7 @@
 
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
-                      <label for="input_{./limit_to/record_attributes/@name}" style="display:none;">Record attributes</label>
+
                       <select aria-label="Record attributes" id="input_{./limit_to/record_attributes/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/record_attributes/@name}">
 
                         <xsl:for-each select="./limit_to/record_attributes/record_attribute">
