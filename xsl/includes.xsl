@@ -385,7 +385,7 @@
 
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
-                      
+
                       <select aria-label="Media types" id="input_{./limit_to/media_types/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/media_types/@name}">
 
                         <xsl:for-each select="./limit_to/media_types/media_type">
@@ -441,7 +441,7 @@
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
                       <xsl:text>In </xsl:text>
-                      <label for="{./limit_to/scopes/@name}" style="display:none;">Scopes</label>
+
                       <select aria-label="Scopes" id="{./limit_to/scopes/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/scopes/@name}">
 
                         <xsl:for-each select="./limit_to/scopes/scope">
