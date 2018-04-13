@@ -332,7 +332,14 @@
 
                       <xsl:if test="./@name != ''">
                         <xsl:element name="label">
-                          <xsl:attribute name="for"><xsl:value-of select="./@name" /></xsl:attribute>
+                          <xsl:choose>
+                            <xsl:when text="./@id != ''">
+                              <xsl:attribute name="for"><xsl:value-of select="./@id" /></xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:attribute name="for"><xsl:value-of select="./@name" /></xsl:attribute>
+                            </xsl:otherwise>
+                          </xsl:choose>
                           <xsl:if test="./@hide-label = 'true'">
                             <xsl:attribute name="style">display:none;</xsl:attribute>
                           </xsl:if>
