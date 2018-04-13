@@ -86,15 +86,16 @@
       </xsl:element>
 
       <xsl:element name="body">
-
+        <header>
         <xsl:element name="div">
 
           <xsl:attribute name="id">header</xsl:attribute>
           <a href="https://library.nyu.edu" target="_blank">
-            <img alt="NYU Libraries" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
+            <img alt="NYU Libraries logo" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
           </a>
         </xsl:element>
 
+        <nav>
         <xsl:element name="div">
 
           <xsl:attribute name="id">nav1</xsl:attribute>
@@ -143,21 +144,22 @@
             <xsl:element name="li"></xsl:element>
           </xsl:element>
         </xsl:element>
+        </nav>
+      </header>
 
-        <xsl:element name="div">
-
-          <xsl:attribute name="id">maincontent</xsl:attribute>
-
-          <xsl:attribute name="class">clearBoth</xsl:attribute>
-
-          <xsl:call-template name="main"/>
-
+        <main>
           <xsl:element name="div">
 
-            <xsl:attribute name="id">ft</xsl:attribute>
+            <xsl:attribute name="id">maincontent</xsl:attribute>
 
-            <xsl:element name="p"><xsl:value-of select="$text_footer"/></xsl:element>
+            <xsl:attribute name="class">clearBoth</xsl:attribute>
+
+            <xsl:call-template name="main"/>
+
           </xsl:element>
+        </main>
+        <xsl:element name="footer">
+          <xsl:element name="div"><xsl:value-of select="$text_footer"/></xsl:element>
         </xsl:element>
 
       </xsl:element>
@@ -332,7 +334,14 @@
 
                       <xsl:if test="./@name != ''">
                         <xsl:element name="label">
-                          <xsl:attribute name="for"><xsl:value-of select="./@name" /></xsl:attribute>
+                          <xsl:choose>
+                            <xsl:when test="./@id != ''">
+                              <xsl:attribute name="for"><xsl:value-of select="./@id" /></xsl:attribute>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:attribute name="for"><xsl:value-of select="./@name" /></xsl:attribute>
+                            </xsl:otherwise>
+                          </xsl:choose>
                           <xsl:if test="./@hide-label = 'true'">
                             <xsl:attribute name="style">display:none;</xsl:attribute>
                           </xsl:if>
@@ -377,7 +386,7 @@
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
                       <label for="input_{./limit_to/media_types/@name}" style="display:none;">Media types</label>
-                      <select aria-label="Media types" id="input_{./limit_to/media_types/@name}" name="{./limit_to/media_types/@name}">
+                      <select aria-label="Media types" id="input_{./limit_to/media_types/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/media_types/@name}">
 
                         <xsl:for-each select="./limit_to/media_types/media_type">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
@@ -392,7 +401,7 @@
                   <xsl:if test="count(./limit_to/search_types/search_type) &gt; 0">
                     <span class="bobcat_embed_search_type">
                       <label for="input_{./limit_to/search_types/@name}" style="display:none;">Precision operator</label>
-                      <select aria-label="Precision operator" id="input_{./limit_to/search_types/@name}" name="{./limit_to/search_types/@name}">
+                      <select aria-label="Precision operator" id="input_{./limit_to/search_types/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/search_types/@name}">
 
                         <xsl:for-each select="./limit_to/search_types/search_type">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
@@ -412,7 +421,7 @@
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                       </xsl:if>
                       <label for="input_{./limit_to/record_attributes/@name}" style="display:none;">Record attributes</label>
-                      <select aria-label="Record attributes" id="input_{./limit_to/record_attributes/@name}" name="{./limit_to/record_attributes/@name}">
+                      <select aria-label="Record attributes" id="input_{./limit_to/record_attributes/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/record_attributes/@name}">
 
                         <xsl:for-each select="./limit_to/record_attributes/record_attribute">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
@@ -433,7 +442,7 @@
                       </xsl:if>
                       <xsl:text>In </xsl:text>
                       <label for="{./limit_to/scopes/@name}" style="display:none;">Scopes</label>
-                      <select aria-label="Scopes" id="{./limit_to/scopes/@name}" name="{./limit_to/scopes/@name}">
+                      <select aria-label="Scopes" id="{./limit_to/scopes/@name}_{./@system}_{./@name}_{$id}" name="{./limit_to/scopes/@name}">
 
                         <xsl:for-each select="./limit_to/scopes/scope">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
