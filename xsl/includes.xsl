@@ -91,7 +91,7 @@
 
           <xsl:attribute name="id">header</xsl:attribute>
           <a href="https://library.nyu.edu" target="_blank">
-            <img alt="NYU Libraries" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
+            <img alt="NYU Libraries logo" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
           </a>
         </xsl:element>
 
@@ -392,7 +392,7 @@
                   <xsl:if test="count(./limit_to/search_types/search_type) &gt; 0">
                     <span class="bobcat_embed_search_type">
                       <label for="input_{./limit_to/search_types/@name}" style="display:none;">Precision operator</label>
-                      <select aria-label="Precision operator" id="input_{./limit_to/search_types/@name}" name="{./limit_to/search_types/@name}">
+                      <select aria-label="Precision operator" id="input_{./limit_to/search_types/@name}_{./@system}_{./@name}_{@id}" name="{./limit_to/search_types/@name}">
 
                         <xsl:for-each select="./limit_to/search_types/search_type">
                           <option value="{./@name}"><xsl:value-of select="."/></option>
