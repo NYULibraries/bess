@@ -21,7 +21,7 @@ class Bobcat_Embed_Search extends BobCat_Embed
     if (self::DEBUG) print_r($_REQUEST);
 
     foreach (array('addSearchFields', 'system') as $required_field) {
-      if (!isset($_REQUEST[$required_field]))
+      // if (!isset($_REQUEST[$required_field]))
         // if (!self::DEBUG) goto redirect_me;
     }
 
