@@ -341,12 +341,12 @@
              </xsl:choose>
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
-                  <input type="hidden" name="displayMode" value="full">
-                  <input type="hidden" name="bulkSize" value="10">
-                  <input type="hidden" name="highlight" value="true">
-                  <input type="hidden" name="dum" value="true">
-                  <input type="hidden" name="query" id="primoQuery">
-                  <input type="hidden" name="displayField" value="all">
+                  <input type="hidden" name="displayMode" value="full"/>
+                  <input type="hidden" name="bulkSize" value="10"/>
+                  <input type="hidden" name="highlight" value="true"/>
+                  <input type="hidden" name="dum" value="true"/>
+                  <input type="hidden" name="query" id="primoQuery"/>
+                  <input type="hidden" name="displayField" value="all"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <!-- necessary fields for primo search -->
