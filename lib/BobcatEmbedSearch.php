@@ -22,7 +22,7 @@ class Bobcat_Embed_Search extends BobCat_Embed
 
     foreach (array('addSearchFields', 'system') as $required_field) {
       if (!isset($_REQUEST[$required_field]))
-        if (!self::DEBUG) goto redirect_me;
+        // if (!self::DEBUG) goto redirect_me;
     }
 
 	  foreach ($_REQUEST['addSearchFields'] as $addField => $addFieldValue)
@@ -79,8 +79,8 @@ class Bobcat_Embed_Search extends BobCat_Embed
       exit;
     }
 
-    redirect_me:
-		if ($url != "") @header("Location: ".$url."\n\n");
+    // redirect_me:
+		// if ($url != "") @header("Location: ".$url."\n\n");
 	}
 
 }
