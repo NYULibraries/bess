@@ -308,18 +308,55 @@
 
             <!-- hide this tab if it's not the default tab -->
             <xsl:if test="(./@name != //request/disp_default_tab) or (not(//request/disp_default_tab) and (position() != 1))">
-
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:if>
 
+            <xsl:if test="./@primo-nui = 'true'">
+              <script type="text/javascript">
+              <![CDATA[
+              function searchPrimo() {
+                document.getElementById("primoQuery").value = "any,contains," + document.getElementById("primoQueryTemp").value.replace(/[,]/g, " ");
+                document.forms["searchForm"].submit();
+              }
+              ]]>
+              </script>
+            </xsl:if>
+
             <!-- start form to send search request -->
-            <form accept-charset="utf-8" action="{$base_url}/index.php" method="get" name="form1" target="_blank">
-              <!-- necessary fields for primo search -->
-              <input name="action" type="hidden" value="search"/>
-              <input name="tab" type="hidden" value="{./@name}"/>
-              <input name="vid" type="hidden" value="{$vid}"/>
-              <input name="system" type="hidden" value="{./@system}"/>
-              <input name="search" type="hidden" value="{./@search}"/>
+            <xsl:element name="form">
+              <xsl:attribute name="target">_blank</xsl:attribute>
+              <xsl:attribute name="method">get</xsl:attribute>
+              <xsl:choose>
+                <xsl:when test="./@primo-nui = 'true'">
+                  <xsl:attribute name="enctype"><xsl:text>application/x-www-form-urlencoded; charset=utf-8"</xsl:text></xsl:attribute>
+                  <xsl:attribute name="onsubmit"><xsl:text>javascript:searchPrimo();</xsl:text></xsl:attribute>
+                  <xsl:attribute name="name">primoSearchForm</xsl:attribute>
+                  <xsl:attribute name="action"><xsl:value-of select="$primo_search_url" /></xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="accept-charset">utf-8</xsl:attribute>
+                  <xsl:attribute name="action"><xsl:value-of select="$base_url" /><xsl:text>/index.php</xsl:text></xsl:attribute>
+                  <xsl:attribute name="name">form1</xsl:attribute>
+               </xsl:otherwise>
+             </xsl:choose>
+              <xsl:choose>
+                <xsl:when test="./@primo-nui = 'true'">
+                  <input type="hidden" name="displayMode" value="full">
+                  <input type="hidden" name="bulkSize" value="10">
+                  <input type="hidden" name="highlight" value="true">
+                  <input type="hidden" name="dum" value="true">
+                  <input type="hidden" name="query" id="primoQuery">
+                  <input type="hidden" name="displayField" value="all">
+                </xsl:when>
+                <xsl:otherwise>
+                  <!-- necessary fields for primo search -->
+                  <input name="action" type="hidden" value="search"/>
+                  <input name="tab" type="hidden" value="{./@name}"/>
+                  <input name="vid" type="hidden" value="{$vid}"/>
+                  <input name="system" type="hidden" value="{./@system}"/>
+                  <input name="search" type="hidden" value="{./@search}"/>
+                </xsl:otherwise>
+              </xsl:choose>
 
               <xsl:for-each select="./fields/field[@type='hidden']">
                 <xsl:copy-of select="./node()"/>
@@ -355,7 +392,16 @@
 
                   <xsl:if test="./fields/field[@type!='hidden']">
                     <span class="bobat_embed_searchbox_submit_container">
-                      <input aria-label="Search" class="bobcat_embed_searchbox_submit" name="Submit" type="submit" value="GO"/>
+                      <xsl:element name="input">
+                        <xsl:attribute name="aria-label">Search</xsl:attribute>
+                        <xsl:attribute name="class">bobcat_embed_searchbox_submit</xsl:attribute>
+                        <xsl:attribute name="name">Submit</xsl:attribute>
+                        <xsl:attribute name="type">submit</xsl:attribute>
+                        <xsl:attribute name="value">GO</xsl:attribute>
+                        <xsl:if test="./@primo-nui = 'true'">
+                          <xsl:attribute name="onclick">javascript:searchPrimo();</xsl:attribute>
+                        </xsl:if>
+                      </xsl:element>
                     </span>
                   </xsl:if>
                 </div>
@@ -564,7 +610,7 @@
                 </div>
               </xsl:if>
 
-            </form>
+            </xsl:element> <!-- </form> -->
           </div>
           <!-- /end bobcat_embed_tab_content -->
 
