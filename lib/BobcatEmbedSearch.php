@@ -50,24 +50,28 @@ class Bobcat_Embed_Search extends BobCat_Embed
 		}
 	  // Structure search URL for Primo
 	  elseif ($_REQUEST['system'] == 'primo') {
-	  	if ($_REQUEST['search'] == 'dl') {
-	  		$url .= $this->primo_dlsearch_url."?";
-	  	  $url .= $querystring;
-	  		$url .= "&loc=local,".$_REQUEST['scp_scps'];
-	  		$url .= "&scp.scps=".$_REQUEST['scp_scps'];
-	  		$url .= "&query=";
-	  		$url .= ($_REQUEST['indexField']) ? $_REQUEST['indexField'] : "any";
-	  		$url .= ",";
-	  		$url .= ($_REQUEST['precisionOperator']) ? $_REQUEST['precisionOperator'] : "contains";
-	  		$url .= ",";
-	  		$url .= ($_REQUEST['addSearchFields']['vl(freeText0)']) ? $_REQUEST['addSearchFields']['vl(freeText0)'] : " ";
- 	  	} else {
- 	      $url .= $this->primo_search_url."?";
- 	      $url .= $querystring;
- 	      $url .= "&scp.scps=".$_REQUEST['scp_scps'];
- 	  	}
-	  	if ($_REQUEST['vid'])	$url .= "&institution=".$_REQUEST['vid']."&vid=".$_REQUEST['vid'];
-	  	if ($_REQUEST['tab'])	$url .= "&tab=".$_REQUEST['tab'];
+			if ($_REQUEST['primo-nui']) {
+				$url .= $this->primo_nui_search_url."?".$_SERVER['QUERY_STRING'];
+			} else {
+				if ($_REQUEST['search'] == 'dl') {
+					$url .= $this->primo_dlsearch_url."?";
+					$url .= $querystring;
+					$url .= "&loc=local,".$_REQUEST['scp_scps'];
+					$url .= "&scp.scps=".$_REQUEST['scp_scps'];
+					$url .= "&query=";
+					$url .= ($_REQUEST['indexField']) ? $_REQUEST['indexField'] : "any";
+					$url .= ",";
+					$url .= ($_REQUEST['precisionOperator']) ? $_REQUEST['precisionOperator'] : "contains";
+					$url .= ",";
+					$url .= ($_REQUEST['addSearchFields']['vl(freeText0)']) ? $_REQUEST['addSearchFields']['vl(freeText0)'] : " ";
+				} else {
+					$url .= $this->primo_search_url."?";
+					$url .= $querystring;
+					$url .= "&scp.scps=".$_REQUEST['scp_scps'];
+				}
+				if ($_REQUEST['vid'])	$url .= "&institution=".$_REQUEST['vid']."&vid=".$_REQUEST['vid'];
+				if ($_REQUEST['tab'])	$url .= "&tab=".$_REQUEST['tab'];
+			}
 	  }
 
     if (self::DEBUG) {
