@@ -318,16 +318,8 @@
               <xsl:attribute name="target">_blank</xsl:attribute>
               <xsl:attribute name="method">get</xsl:attribute>
               <xsl:attribute name="action"><xsl:value-of select="$base_url" /><xsl:text>/index.php</xsl:text></xsl:attribute>
-              <xsl:choose>
-                <xsl:when test="./@primo-nui = 'true'">
-                  <xsl:attribute name="enctype"><xsl:text>application/x-www-form-urlencoded; charset=utf-8"</xsl:text></xsl:attribute>
-                  <xsl:attribute name="name">primoSearchForm</xsl:attribute>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:attribute name="accept-charset">utf-8</xsl:attribute>
-                  <xsl:attribute name="name">form1</xsl:attribute>
-               </xsl:otherwise>
-             </xsl:choose>
+              <xsl:attribute name="accept-charset">utf-8</xsl:attribute>
+              <xsl:attribute name="name">form1</xsl:attribute>
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
                   <input type="hidden" name="primo-nui" value="true" />
@@ -335,7 +327,7 @@
                   <input type="hidden" name="bulkSize" value="10"/>
                   <input type="hidden" name="highlight" value="true"/>
                   <input type="hidden" name="dum" value="true"/>
-                  <input type="hidden" name="query" id="primoQuery"/>
+                  <!-- <input type="hidden" name="query" id="primoQuery"/> -->
                   <input type="hidden" name="displayField" value="all"/>
                 </xsl:when>
                 <xsl:otherwise>

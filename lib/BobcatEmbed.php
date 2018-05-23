@@ -72,6 +72,7 @@ class BobCat_Embed
 		//Populate additional global vars for sub class use
 		$this->primo_search_url = $this->getConfigOption('primo_search_url');
 		$this->primo_dlsearch_url = $this->getConfigOption('primo_dlsearch_url');
+		$this->primo_nui_search_url = $this->getConfigOption('primo_nui_search_url');
 		$this->xerxes_search_url = $this->getConfigOption('xerxes_search_url');
 		$this->umlaut_search_url = $this->getConfigOption('umlaut_search_url');
 		$this->libguides_search_url = $this->getConfigOption('libguides_search_url');
