@@ -311,17 +311,6 @@
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:if>
 
-            <xsl:if test="./@primo-nui = 'true'">
-              <script type="text/javascript">
-              <![CDATA[
-              function searchPrimo() {
-                document.getElementById("primoQuery").value = "any,contains," + document.getElementById("primoQueryTemp").value.replace(/[,]/g, " ");
-                document.forms["searchForm"].submit();
-              }
-              ]]>
-              </script>
-            </xsl:if>
-
             <!-- start form to send search request -->
             <xsl:element name="form">
               <xsl:attribute name="target">_blank</xsl:attribute>
@@ -329,7 +318,6 @@
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
                   <xsl:attribute name="enctype"><xsl:text>application/x-www-form-urlencoded; charset=utf-8"</xsl:text></xsl:attribute>
-                  <xsl:attribute name="onsubmit"><xsl:text>javascript:searchPrimo();</xsl:text></xsl:attribute>
                   <xsl:attribute name="name">primoSearchForm</xsl:attribute>
                   <xsl:attribute name="action"><xsl:value-of select="$primo_search_url" /></xsl:attribute>
                 </xsl:when>
@@ -398,9 +386,6 @@
                         <xsl:attribute name="name">Submit</xsl:attribute>
                         <xsl:attribute name="type">submit</xsl:attribute>
                         <xsl:attribute name="value">GO</xsl:attribute>
-                        <xsl:if test="./@primo-nui = 'true'">
-                          <xsl:attribute name="onclick">javascript:searchPrimo();</xsl:attribute>
-                        </xsl:if>
                       </xsl:element>
                     </span>
                   </xsl:if>
