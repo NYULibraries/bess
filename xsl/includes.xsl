@@ -320,6 +320,8 @@
               <xsl:attribute name="action"><xsl:value-of select="$base_url" /><xsl:text>/index.php</xsl:text></xsl:attribute>
               <xsl:attribute name="accept-charset">utf-8</xsl:attribute>
               <xsl:attribute name="name">form1</xsl:attribute>
+              <input name="system" type="hidden" value="{./@system}"/>
+              <input name="search" type="hidden" value="{./@search}"/>
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
                   <input type="hidden" name="primo-nui" value="true" />
@@ -335,8 +337,6 @@
                   <input name="action" type="hidden" value="search"/>
                   <input name="tab" type="hidden" value="{./@name}"/>
                   <input name="vid" type="hidden" value="{$vid}"/>
-                  <input name="system" type="hidden" value="{./@system}"/>
-                  <input name="search" type="hidden" value="{./@search}"/>
                 </xsl:otherwise>
               </xsl:choose>
 
