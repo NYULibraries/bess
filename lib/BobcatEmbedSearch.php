@@ -10,7 +10,7 @@ require_once('BobcatEmbed.php');
  */
 class Bobcat_Embed_Search extends BobCat_Embed
 {
-	const DEBUG = true;
+	const DEBUG = false;
   /**
    * Upon submission of the form, generate the correct url to redirect to
    */
@@ -21,8 +21,8 @@ class Bobcat_Embed_Search extends BobCat_Embed
     if (self::DEBUG) print_r($_REQUEST);
 
     foreach (array('addSearchFields', 'system') as $required_field) {
-      // if (!isset($_REQUEST[$required_field]))
-        // if (!self::DEBUG) goto redirect_me;
+      if (!isset($_REQUEST[$required_field]))
+        if (!self::DEBUG) goto redirect_me;
     }
 
 	  foreach ($_REQUEST['addSearchFields'] as $addField => $addFieldValue)
@@ -79,8 +79,8 @@ class Bobcat_Embed_Search extends BobCat_Embed
       exit;
     }
 
-    // redirect_me:
-		// if ($url != "") @header("Location: ".$url."\n\n");
+    redirect_me:
+		if ($url != "") @header("Location: ".$url."\n\n");
 	}
 
 }

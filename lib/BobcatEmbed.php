@@ -22,6 +22,7 @@ class BobCat_Embed
 	protected $base_url = null;
 	protected $primo_search_url = null;
 	protected $primo_dlsearch_url = null;
+	protected $primo_nui_search_url = null;
 	protected $xerxes_search_url = null;
 	protected $umlaut_search_url = null;
 
