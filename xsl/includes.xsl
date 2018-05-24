@@ -325,7 +325,7 @@
               <input name="action" type="hidden" value="search"/>
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
-                  <input type="hidden" name="primo-nui" value="true" />
+                  <input type="hidden" name="nui" value="true" />
                   <input type="hidden" name="displayMode" value="full"/>
                   <input type="hidden" name="bulkSize" value="10"/>
                   <input type="hidden" name="highlight" value="true"/>
