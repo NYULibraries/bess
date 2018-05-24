@@ -10,7 +10,7 @@ require_once('BobcatEmbed.php');
  */
 class Bobcat_Embed_Search extends BobCat_Embed
 {
-	const DEBUG = true;
+	const DEBUG = false;
   /**
    * Upon submission of the form, generate the correct url to redirect to
    */
@@ -50,9 +50,8 @@ class Bobcat_Embed_Search extends BobCat_Embed
 		}
 	  // Structure search URL for Primo
 	  elseif ($_REQUEST['system'] == 'primo') {
-			print $_REQUEST['nui'];
 			if ($_REQUEST['nui'] == 'true') {
-				$url .= $this->primo_nui_search_url."?".$querystring."&query=any,contains,".str_replace(',', ' ', $_REQUEST['primoQueryTemp']);
+				$url .= $this->primo_nui_search_url."?".$querystring."&query=any,contains,".str_replace(',', ' ', $_REQUEST['addSearchFields']['primoQueryTemp']);
 			} else {
 				if ($_REQUEST['search'] == 'dl') {
 					$url .= $this->primo_dlsearch_url."?";
