@@ -52,7 +52,7 @@ class Bobcat_Embed_Search extends BobCat_Embed
 	  elseif ($_REQUEST['system'] == 'primo') {
 			print $_REQUEST['nui'];
 			if ($_REQUEST['nui'] == 'true') {
-				$url .= $this->primo_nui_search_url."?".$_SERVER['QUERY_STRING']."&query=any,contains,".str_replace(',', ' ', $_REQUEST['primoQueryTemp']);
+				$url .= $this->primo_nui_search_url."?".$querystring."&query=any,contains,".str_replace(',', ' ', $_REQUEST['primoQueryTemp']);
 			} else {
 				if ($_REQUEST['search'] == 'dl') {
 					$url .= $this->primo_dlsearch_url."?";

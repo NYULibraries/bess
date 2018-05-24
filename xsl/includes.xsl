@@ -325,13 +325,7 @@
               <input name="action" type="hidden" value="search"/>
               <xsl:choose>
                 <xsl:when test="./@primo-nui = 'true'">
-                  <input type="hidden" name="nui" value="true" />
-                  <input type="hidden" name="displayMode" value="full"/>
-                  <input type="hidden" name="bulkSize" value="10"/>
-                  <input type="hidden" name="highlight" value="true"/>
-                  <input type="hidden" name="dum" value="true"/>
-                  <!-- <input type="hidden" name="query" id="primoQuery"/> -->
-                  <input type="hidden" name="displayField" value="all"/>
+                  <input name="nui" type="hidden" value="true"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <!-- necessary fields for primo search -->
