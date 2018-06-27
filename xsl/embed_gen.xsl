@@ -94,8 +94,8 @@
 <xsl:template name="main">
 
 	<script type="text/javascript">
-		bobcat_embed_base_url = '<xsl:call-template name="embed_direct_url" />';
-		bobcat_embed_noscript_content = '<xsl:copy-of select="$text_snippet_noscript"/>';
+		var bobcat_embed_base_url = '<xsl:call-template name="embed_direct_url" />';
+		var bobcat_embed_noscript_content = '<xsl:copy-of select="$text_snippet_noscript"/>';
 	</script>
 
 	<h1><xsl:call-template name="page_name" /></h1>
