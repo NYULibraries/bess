@@ -205,10 +205,10 @@
 
       <div class="bobcat_embed_tabs_wrapper" id="bobcat_embed_tabs_wrapper_{$unique_key}">
         <div class="bobcat_embed_tabs" id="bobcat_embed_tabs_{$unique_key}">
-          <ul>
+          <ul role="tablist">
 
             <xsl:for-each select="//view[@id=$id]/tabs/tab">
-              <li id="{@name}_{$unique_key}">
+              <li role="tab" id="{@name}_{$unique_key}">
 
                 <xsl:attribute name="class">
 
@@ -233,6 +233,20 @@
                   </xsl:if>
 
                 </xsl:attribute>
+
+                <!-- aria-selected -->
+                <xsl:choose>
+                  <xsl:when test="(//request/disp_default_tab = @name) or (not(//request/disp_default_tab) and (./@default = 'true'))">
+                    <xsl:attribute name="aria-selected">true</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="aria-selected">false</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+
+                <!-- aria-controls -->
+                <xsl:attribute name="aria-controls">bobcat_embed_tab_content_<xsl:value-of select="./@name"/>_<xsl:value-of select="$unique_key"/></xsl:attribute>
+
                 <a>
 
                   <xsl:if test="not(@link_out = 'true')">
@@ -291,6 +305,9 @@
                   </xsl:attribute>
 
                   <xsl:value-of select="@title"/>
+                  <xsl:if test="@link_out = 'true' and @link_out_href">
+                    <span class="position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0, 0, 0, 0);border: 0;">(opens in a new window)</span>
+                  </xsl:if>
                 </a>
               </li>
             </xsl:for-each>
@@ -304,14 +321,25 @@
         <!-- FOR EACH TAB IN VIEW -->
         <xsl:for-each select="//view[@id=$id]/tabs/tab">
 
-          <div class="bobcat_embed_tab_content bobcat_embed_tab_content_{$unique_key}">
+          <div class="bobcat_embed_tab_content bobcat_embed_tab_content_{$unique_key}" role="tabpanel">
 
             <xsl:attribute name="id">bobcat_embed_tab_content_<xsl:value-of select="./@name"/>_<xsl:value-of select="$unique_key"/></xsl:attribute>
+            <xsl:attribute name="aria-labelledby"><xsl:value-of select="./@name"/>_<xsl:value-of select="$unique_key"/></xsl:attribute>
 
             <!-- hide this tab if it's not the default tab -->
             <xsl:if test="(./@name != //request/disp_default_tab) or (not(//request/disp_default_tab) and (position() != 1))">
               <xsl:attribute name="style">display:none;</xsl:attribute>
             </xsl:if>
+
+            <!-- aria-hidden -->
+            <xsl:choose>
+              <xsl:when test="(./@name != //request/disp_default_tab) or (not(//request/disp_default_tab) and (position() != 1))">
+                <xsl:attribute name="aria-hidden">true</xsl:attribute>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="aria-hidden">false</xsl:attribute>
+              </xsl:otherwise>
+            </xsl:choose>
 
             <!-- start form to send search request -->
             <xsl:element name="form">
