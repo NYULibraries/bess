@@ -306,7 +306,7 @@
 
                   <xsl:value-of select="@title"/>
                   <xsl:if test="@link_out = 'true' and @link_out_href">
-                    <span class="position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0, 0, 0, 0);border: 0;">(opens in a new window)</span>
+                    <span style="position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0, 0, 0, 0);border: 0;">(opens in a new window)</span>
                   </xsl:if>
                 </a>
               </li>
