@@ -93,7 +93,7 @@
 
           <xsl:attribute name="id">header</xsl:attribute>
           <a href="https://library.nyu.edu" target="_blank">
-            <img alt="NYU Libraries logo" height="30" src="https://library.nyu.edu/assets/images/nyulibraries-logo.svg" width="233"/>
+            <img alt="NYU Libraries logo" height="30" src="https://cdn.library.nyu.edu/images/nyulibraries-logo.svg" width="233"/>
           </a>
         </xsl:element>
 
@@ -181,6 +181,7 @@
     <link href="{$base_url}/css/reset-fonts-grids.css" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.library.nyu.edu/bobcat_embed/bobcat-widget.css" rel="stylesheet" type="text/css" />
     <link href="{$base_url}/css/local.css" rel="stylesheet" type="text/css"/>
+    <script src="{$base_url}/javascript/embed.js" type="text/javascript"></script>
 
   </xsl:template>
 
@@ -193,7 +194,7 @@
     <!--
 		option to load javascript librar(y/ies)
 	-->
-    <script src="https://cdn.library.nyu.edu/bobcat_embed/embed-functions-nolib.js" type="text/javascript"></script>
+    <script src="https://cdn-dev.library.nyu.edu/bobcat_embed/tabs.js" type="text/javascript"></script>
 
     <xsl:if test="//request/action = 'embed' and //request/disp_embed_css = 'true'">
       <link href="https://cdn.library.nyu.edu/bobcat_embed/bobcat-widget.css" rel="stylesheet" type="text/css" />
