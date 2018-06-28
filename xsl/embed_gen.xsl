@@ -62,14 +62,14 @@
 		<xsl:when test="//request/disp_show_limit_to">
 			<xsl:value-of select="//request/disp_show_limit_to" />
 		</xsl:when>
-		<xsl:otherwise>true</xsl:otherwise>
+		<xsl:otherwise>false</xsl:otherwise>
 	</xsl:choose>
 	<xsl:text>&amp;disp_embed_css=</xsl:text>
 	<xsl:choose>
 		<xsl:when test="//request/disp_embed_css">
 			<xsl:value-of select="//request/disp_embed_css" />
 		</xsl:when>
-		<xsl:otherwise>true</xsl:otherwise>
+		<xsl:otherwise>false</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 
@@ -94,9 +94,10 @@
 <xsl:template name="main">
 
 	<script type="text/javascript">
-		bobcat_embed_base_url = '<xsl:call-template name="embed_direct_url" />';
-		bobcat_embed_noscript_content = '<xsl:copy-of select="$text_snippet_noscript"/>';
+		var bobcat_embed_base_url = '<xsl:call-template name="embed_direct_url" />';
+		var bobcat_embed_noscript_content = '<xsl:copy-of select="$text_snippet_noscript"/>';
 	</script>
+	<script src="{$base_url}/javascript/embed.js" type="text/javascript"></script>
 
 	<h1><xsl:call-template name="page_name" /></h1>
 
@@ -156,7 +157,7 @@
 
 							<!-- display limit to options -->
 
-							<tr>
+							<!-- <tr>
 							<td><label for="disp_show_limit_to"><xsl:copy-of select="$text_snippet_show_limit_to" /></label></td>
 							<td>
 							<select onchange="javascript:bobcat_embed_update('disp_show_limit_to','{$unique_key}');"  name="disp_show_limit_to" id="disp_show_limit_to">
@@ -174,24 +175,24 @@
 								</option>
 							</select>
 							</td>
-							</tr>
+							</tr> -->
 
 
 							<tr>
 							<td><label for="disp_embed_css"><xsl:copy-of select="$text_snippet_show_css" /></label></td>
 							<td>
 							<select onchange="javascript:bobcat_embed_update('disp_embed_css','{$unique_key}');" id="disp_embed_css" name="disp_embed_css">
-								<option value="true">
-									<xsl:if test="request/disp_embed_css = 'true'">
-									<xsl:attribute name="selected">selected</xsl:attribute>
-									</xsl:if>
-									<xsl:value-of select="$text_snippet_display_yes" />
-								</option>
 								<option value="false">
 									<xsl:if test="request/disp_embed_css = 'false'">
 									<xsl:attribute name="selected">selected</xsl:attribute>
 									</xsl:if>
 									<xsl:value-of select="$text_snippet_display_no" />
+								</option>
+								<option value="true">
+									<xsl:if test="request/disp_embed_css = 'true'">
+									<xsl:attribute name="selected">selected</xsl:attribute>
+									</xsl:if>
+									<xsl:value-of select="$text_snippet_display_yes" />
 								</option>
 							</select>
 							</td>
