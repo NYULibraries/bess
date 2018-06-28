@@ -15,9 +15,11 @@ function bobcat_embed_switch_tab(tab_id,key) {
 	var bobcat_tab_selected = document.getElementsByClassName(`bobcat_embed_tabs_selected_${key}`);
 	for (var i=0;i<bobcat_tab_selected.length;i++) {
 		bobcat_tab_selected[i].classList.remove('bobcat_embed_tabs_selected', `bobcat_embed_tabs_selected_${key}`);
+		bobcat_tab_selected[i].setAttribute('aria-selected', 'false');
 	}
 	//add selected tab class to the new tab
 	document.getElementById(tab_id).classList.add('bobcat_embed_tabs_selected',`bobcat_embed_tabs_selected_${key}`);
+	document.getElementById(tab_id).setAttribute('aria-selected', 'true');
 	//show new tab
 	var tab_id_complete = "bobcat_embed_tab_content_" + tab_id;
 	document.getElementById(tab_id_complete).style.display = 'block';
