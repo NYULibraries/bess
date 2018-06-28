@@ -163,7 +163,6 @@
         <xsl:element name="footer">
           <xsl:element name="div"><xsl:value-of select="$text_footer"/></xsl:element>
         </xsl:element>
-        <script src="{$base_url}/javascript/embed.js" type="text/javascript" defer="defer"></script>
 
       </xsl:element>
 

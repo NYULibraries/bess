@@ -97,6 +97,7 @@
 		var bobcat_embed_base_url = '<xsl:call-template name="embed_direct_url" />';
 		var bobcat_embed_noscript_content = '<xsl:copy-of select="$text_snippet_noscript"/>';
 	</script>
+	<script src="{$base_url}/javascript/embed.js" type="text/javascript" defer="defer"></script>
 
 	<h1><xsl:call-template name="page_name" /></h1>
 
