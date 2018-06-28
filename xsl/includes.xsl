@@ -193,7 +193,7 @@
     <!--
 		option to load javascript librar(y/ies)
 	-->
-    <script src="https://cdn-dev.library.nyu.edu/bobcat_embed/tabs.js" type="text/javascript"></script>
+    <script src="https://cdn.library.nyu.edu/bobcat_embed/tabs.js" type="text/javascript"></script>
 
     <xsl:if test="//request/action = 'embed' and //request/disp_embed_css = 'true'">
       <link href="https://cdn.library.nyu.edu/bobcat_embed/bobcat-widget.css" rel="stylesheet" type="text/css" />
