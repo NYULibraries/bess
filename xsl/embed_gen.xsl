@@ -182,17 +182,17 @@
 							<td><label for="disp_embed_css"><xsl:copy-of select="$text_snippet_show_css" /></label></td>
 							<td>
 							<select onchange="javascript:bobcat_embed_update('disp_embed_css','{$unique_key}');" id="disp_embed_css" name="disp_embed_css">
-								<option value="true">
-									<xsl:if test="request/disp_embed_css = 'true'">
-									<xsl:attribute name="selected">selected</xsl:attribute>
-									</xsl:if>
-									<xsl:value-of select="$text_snippet_display_yes" />
-								</option>
 								<option value="false">
 									<xsl:if test="request/disp_embed_css = 'false'">
 									<xsl:attribute name="selected">selected</xsl:attribute>
 									</xsl:if>
 									<xsl:value-of select="$text_snippet_display_no" />
+								</option>
+								<option value="true">
+									<xsl:if test="request/disp_embed_css = 'true'">
+									<xsl:attribute name="selected">selected</xsl:attribute>
+									</xsl:if>
+									<xsl:value-of select="$text_snippet_display_yes" />
 								</option>
 							</select>
 							</td>
