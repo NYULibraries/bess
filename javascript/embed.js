@@ -9,7 +9,7 @@ function bobcat_embed_update(field,key) {
 	var reg1 = new RegExp(field + "=.+?&"); //phrase in the middle of querystring
 	var reg2 = new RegExp("&" + field + "=.+?$"); //phrase at end of querystring
 
-  var bobcat_embed_base_url;
+  // bobcat_embed_base_url is initialized out there in the template
 	//match either of the above regular expressions and replace the old field value with the new
 	if (bobcat_embed_base_url.match(reg1) ) {
 		bobcat_embed_base_url = bobcat_embed_base_url.replace(reg1,"") + "&" + field + "=" + new_option;
