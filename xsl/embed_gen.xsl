@@ -62,14 +62,14 @@
 		<xsl:when test="//request/disp_show_limit_to">
 			<xsl:value-of select="//request/disp_show_limit_to" />
 		</xsl:when>
-		<xsl:otherwise>true</xsl:otherwise>
+		<xsl:otherwise>false</xsl:otherwise>
 	</xsl:choose>
 	<xsl:text>&amp;disp_embed_css=</xsl:text>
 	<xsl:choose>
 		<xsl:when test="//request/disp_embed_css">
 			<xsl:value-of select="//request/disp_embed_css" />
 		</xsl:when>
-		<xsl:otherwise>true</xsl:otherwise>
+		<xsl:otherwise>false</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
 
@@ -157,7 +157,7 @@
 
 							<!-- display limit to options -->
 
-							<tr>
+							<!-- <tr>
 							<td><label for="disp_show_limit_to"><xsl:copy-of select="$text_snippet_show_limit_to" /></label></td>
 							<td>
 							<select onchange="javascript:bobcat_embed_update('disp_show_limit_to','{$unique_key}');"  name="disp_show_limit_to" id="disp_show_limit_to">
@@ -175,7 +175,7 @@
 								</option>
 							</select>
 							</td>
-							</tr>
+							</tr> -->
 
 
 							<tr>
