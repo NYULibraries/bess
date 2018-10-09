@@ -51,7 +51,7 @@ class Bobcat_Embed_Search extends BobCat_Embed
 	  // Structure search URL for Primo
 	  elseif ($_REQUEST['system'] == 'primo') {
 			if ($_REQUEST['nui'] == 'true') {
-				$url .= $this->primo_nui_search_url."?".$querystring."&query=any,contains,".str_replace(',', ' ', $_REQUEST['addSearchFields']['primoQueryTemp']);
+				$url .= $this->primo_nui_search_url."?".$querystring."&query=any,contains,".urlencode(str_replace(',', ' ', $_REQUEST['addSearchFields']['primoQueryTemp']));
 			} else {
 				if ($_REQUEST['search'] == 'dl') {
 					$url .= $this->primo_dlsearch_url."?";
